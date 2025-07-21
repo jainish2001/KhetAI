@@ -8,6 +8,7 @@ const translations = {
     'history': 'History',
     'settings': 'Settings',
     'login': 'Login',
+    'logout': 'Logout',
 
     // Home Page
     'welcome_title': 'Welcome to KhetAI',
@@ -62,8 +63,11 @@ const translations = {
     'login_title': 'Login to KhetAI',
     'login_desc': 'Enter your phone number to receive a one-time password (OTP).',
     'phone_number_label': 'Phone Number',
-    'phone_number_placeholder': '+91 12345 67890',
+    'phone_number_placeholder': '1234567890',
     'send_otp_button': 'Send OTP',
+    'otp_label': 'Enter OTP',
+    'otp_placeholder': '123456',
+    'verify_otp_button': 'Verify OTP',
   },
   hi: { // Hindi
     'home': 'होम',
@@ -73,6 +77,7 @@ const translations = {
     'history': 'इतिहास',
     'settings': 'सेटिंग्स',
     'login': 'लॉग इन करें',
+    'logout': 'लॉग आउट',
 
     'welcome_title': 'खेतAI में आपका स्वागत है',
     'welcome_subtitle': 'आपका व्यक्तिगत खेती सहायक, AI द्वारा संचालित।',
@@ -121,8 +126,11 @@ const translations = {
     'login_title': 'खेतAI में लॉग इन करें',
     'login_desc': 'एक बार का पासवर्ड (OTP) प्राप्त करने के लिए अपना फ़ोन नंबर दर्ज करें।',
     'phone_number_label': 'फ़ोन नंबर',
-    'phone_number_placeholder': '+91 12345 67890',
+    'phone_number_placeholder': '1234567890',
     'send_otp_button': 'OTP भेजें',
+    'otp_label': 'OTP दर्ज करें',
+    'otp_placeholder': '123456',
+    'verify_otp_button': 'OTP सत्यापित करें',
   },
   kn: { // Kannada
     'home': 'ಮನೆ',
@@ -132,8 +140,9 @@ const translations = {
     'history': 'ಇತಿಹಾಸ',
     'settings': 'ಸಂಯೋಜನೆಗಳು',
     'login': 'ಲಾಗಿನ್',
+    'logout': 'ಲಾಗ್ ಔಟ್',
 
-    'welcome_title': 'ಕಿಸಾನ್ ಮಿತ್ರ AI ಗೆ ಸುಸ್ವಾಗತ',
+    'welcome_title': 'ಖೇತ್AI ಗೆ ಸುಸ್ವಾಗತ',
     'welcome_subtitle': 'ನಿಮ್ಮ ವೈಯಕ್ತಿಕ ಕೃಷಿ ಸಹಾಯಕ, AI ನಿಂದ ಚಾಲಿತವಾಗಿದೆ.',
   },
   mr: { // Marathi
@@ -144,8 +153,9 @@ const translations = {
     'history': 'इतिहास',
     'settings': 'सेटिंग्ज',
     'login': 'लॉगिन करा',
+    'logout': 'लॉग आउट',
 
-    'welcome_title': 'किसान मित्र AI मध्ये आपले स्वागत आहे',
+    'welcome_title': 'खेतAI मध्ये आपले स्वागत आहे',
     'welcome_subtitle': 'तुमचे वैयक्तिक शेती सहाय्यक, AI द्वारा समर्थित.',
   },
   ta: { // Tamil
@@ -156,8 +166,9 @@ const translations = {
     'history': 'வரலாறு',
     'settings': 'அமைப்புகள்',
     'login': 'உள்நுழை',
+    'logout': 'வெளியேறு',
 
-    'welcome_title': 'கிசான் மித்ரா AI க்கு வரவேற்கிறோம்',
+    'welcome_title': 'கேத்ஏஐ க்கு வரவேற்கிறோம்',
     'welcome_subtitle': 'உங்கள் தனிப்பட்ட விவசாய உதவியாளர், AI மூலம் இயக்கப்படுகிறது.',
   },
   ml: { // Malayalam
@@ -168,8 +179,9 @@ const translations = {
     'history': 'ചരിത്രം',
     'settings': 'ക്രമീകരണങ്ങൾ',
     'login': 'ലോഗിൻ',
+    'logout': 'ലോഗൗട്ട്',
 
-    'welcome_title': 'കിസാൻ മിത്ര AI-ലേക്ക് സ്വാഗതം',
+    'welcome_title': 'ഖേത്എഐ-ലേക്ക് സ്വാഗതം',
     'welcome_subtitle': 'നിങ്ങളുടെ വ്യക്തിഗത കാർഷിക സഹായി, AI നൽകുന്നത്.',
   }
 };

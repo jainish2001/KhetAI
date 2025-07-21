@@ -5,14 +5,14 @@ import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Upload, X, Loader2 } from 'lucide-react';
+import { Upload, X, Loader2, Leaf } from 'lucide-react';
 import { diagnoseCropDisease, DiagnoseCropDiseaseOutput } from '@/ai/flows/diagnose-crop-disease';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import PageHeader from '@/components/page-header';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/contexts/language-context';
-import { useHistory } from '@/hooks/use-history';
+import { useHistory } from '@/contexts/history-context';
 
 const FormSchema = z.object({
   image: z.any().refine((file) => file, 'Image is required.'),

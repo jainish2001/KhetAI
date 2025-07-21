@@ -13,7 +13,7 @@ import PageHeader from '@/components/page-header';
 import VoiceInputButton from '@/components/voice-input-button';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/contexts/language-context';
-import { useHistory } from '@/hooks/use-history';
+import { useHistory } from '@/contexts/history-context';
 import { Loader2, HandCoins } from 'lucide-react';
 
 const FormSchema = z.object({

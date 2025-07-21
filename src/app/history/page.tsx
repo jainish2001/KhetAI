@@ -1,14 +1,15 @@
 'use client';
 
 import Image from 'next/image';
-import { useHistory, HistoryItem } from '@/hooks/use-history';
+import { useHistory, HistoryItem } from '@/contexts/history-context';
 import { useLanguage } from '@/contexts/language-context';
 import PageHeader from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
-import { Leaf, HandCoins, Building2, Trash2 } from 'lucide-react';
+import { Leaf, HandCoins, Building2, Trash2, History as HistoryIcon } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const ICONS = {
   crop: <Leaf className="h-5 w-5 text-primary" />,
@@ -47,7 +48,7 @@ const QueryDetails: React.FC<{ item: HistoryItem, t: (key: string) => string }> 
 };
 
 export default function HistoryPage() {
-  const { history, clearHistory } = useHistory();
+  const { history, loading, clearHistory } = useHistory();
   const { t } = useLanguage();
 
   const getTitle = (item: HistoryItem) => {
@@ -70,10 +71,16 @@ export default function HistoryPage() {
         )}
       </PageHeader>
       <main className="flex-1 overflow-y-auto p-4 md:p-6">
-        {history.length === 0 ? (
+        {loading ? (
+          <div className="space-y-4">
+            <Skeleton className="h-20 w-full" />
+            <Skeleton className="h-20 w-full" />
+            <Skeleton className="h-20 w-full" />
+          </div>
+        ) : history.length === 0 ? (
           <Card className="text-center py-16">
             <CardHeader>
-              <History className="mx-auto h-16 w-16 text-muted-foreground" />
+              <HistoryIcon className="mx-auto h-16 w-16 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <CardTitle>{t('history_empty')}</CardTitle>

@@ -10,6 +10,8 @@ import {
   History,
   Settings,
   LogIn,
+  LogOut,
+  Loader2
 } from 'lucide-react';
 import {
   SidebarProvider,
@@ -26,10 +28,12 @@ import {
 import { Logo } from '@/components/logo';
 import LanguageSwitcher from './language-switcher';
 import { useLanguage } from '@/contexts/language-context';
+import { useAuth } from '@/contexts/auth-context';
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const { t } = useLanguage();
   const pathname = usePathname();
+  const { user, loading, signOut } = useAuth();
 
   const menuItems = [
     { href: '/', label: t('home'), icon: Home },
@@ -38,6 +42,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     { href: '/gov-schemes', label: t('gov_schemes'), icon: Building2 },
     { href: '/history', label: t('history'), icon: History },
   ];
+
+  if (pathname === '/login') {
+    return <>{children}</>;
+  }
 
   return (
     <SidebarProvider>
@@ -73,12 +81,24 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               </Link>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <Link href="/login" passHref>
-                <SidebarMenuButton isActive={pathname === '/login'} tooltip={t('login')}>
-                  <LogIn />
-                  <span>{t('login')}</span>
+             {loading ? (
+                <SidebarMenuButton disabled>
+                  <Loader2 className="animate-spin" />
+                  <span>Loading...</span>
                 </SidebarMenuButton>
-              </Link>
+              ) : user ? (
+                <SidebarMenuButton onClick={signOut} tooltip={t('logout')}>
+                  <LogOut />
+                  <span>{t('logout')}</span>
+                </SidebarMenuButton>
+              ) : (
+                <Link href="/login" passHref>
+                  <SidebarMenuButton isActive={pathname === '/login'} tooltip={t('login')}>
+                    <LogIn />
+                    <span>{t('login')}</span>
+                  </SidebarMenuButton>
+                </Link>
+              )}
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarFooter>
