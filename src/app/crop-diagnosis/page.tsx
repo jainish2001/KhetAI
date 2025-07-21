@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Upload, X, Loader2, Leaf } from 'lucide-react';
-import { diagnoseCropDisease, DiagnoseCropDiseaseOutput } from '@/ai/flows/diagnose-crop-disease';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import PageHeader from '@/components/page-header';
@@ -27,7 +26,7 @@ export default function CropDiagnosisPage() {
   const [preview, setPreview] = useState<string | null>(null);
   const [dataUri, setDataUri] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<DiagnoseCropDiseaseOutput | null>(null);
+  const [result, setResult] = useState<any | null>(null);
 
   const form = useForm<FormData>({
     resolver: zodResolver(FormSchema),
@@ -63,9 +62,11 @@ export default function CropDiagnosisPage() {
     setLoading(true);
     setResult(null);
     try {
-      const response = await diagnoseCropDisease({ photoDataUri: dataUri });
-      setResult(response);
-      addHistoryItem({ type: 'crop', query: { image: dataUri }, response });
+      // AI call removed
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
+      const mockResponse = { diagnosis: 'This feature is currently disabled.' };
+      setResult(mockResponse);
+      // addHistoryItem({ type: 'crop', query: { image: dataUri }, response: mockResponse });
     } catch (error) {
       console.error(error);
       toast({ title: t('diagnosis_error'), variant: 'destructive' });

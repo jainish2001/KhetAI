@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { summarizeGovernmentScheme, SummarizeGovernmentSchemeOutput } from '@/ai/flows/summarize-government-scheme';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -29,7 +28,7 @@ export default function GovSchemesPage() {
   const { toast } = useToast();
   const { addHistoryItem } = useHistory();
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<SummarizeGovernmentSchemeOutput | null>(null);
+  const [result, setResult] = useState<any | null>(null);
 
   const form = useForm<FormData>({
     resolver: zodResolver(FormSchema),
@@ -40,9 +39,11 @@ export default function GovSchemesPage() {
     setLoading(true);
     setResult(null);
     try {
-      const response = await summarizeGovernmentScheme(data);
-      setResult(response);
-      addHistoryItem({ type: 'scheme', query: data, response });
+      // AI call removed
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
+      const mockResponse = { summary: 'This feature is currently disabled.' };
+      setResult(mockResponse);
+      // addHistoryItem({ type: 'scheme', query: data, response: mockResponse });
     } catch (error) {
       console.error(error);
       toast({ title: t('summary_error'), variant: 'destructive' });

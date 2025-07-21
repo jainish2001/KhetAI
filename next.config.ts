@@ -18,14 +18,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      // This is a workaround for the 'async_hooks' error. It tells Webpack to
-      // resolve 'async_hooks' to a false (empty) module on the client side.
-      config.resolve.alias.async_hooks = false;
-    }
-    return config;
-  },
 };
 
 export default nextConfig;
