@@ -1,8 +1,5 @@
 'use client';
 import React, { useState, useEffect, useCallback, createContext, useContext, ReactNode } from 'react';
-import { collection, addDoc, getDocs, query, where, orderBy, deleteDoc, doc } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
-import { useAuth } from './auth-context';
 
 export type HistoryItem = {
   id: string;
@@ -10,78 +7,64 @@ export type HistoryItem = {
   query: Record<string, any>;
   response: Record<string, any>;
   timestamp: string;
-  userId: string;
 };
 
 interface HistoryContextType {
   history: HistoryItem[];
   loading: boolean;
-  addHistoryItem: (item: Omit<HistoryItem, 'id' | 'timestamp' | 'userId'>) => void;
+  addHistoryItem: (item: Omit<HistoryItem, 'id' | 'timestamp'>) => void;
   clearHistory: () => void;
 }
 
 const HistoryContext = createContext<HistoryContextType | undefined>(undefined);
 
+const HISTORY_STORAGE_KEY = 'khet_ai_history';
+
 export const HistoryProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const { user } = useAuth();
 
-  const fetchHistory = useCallback(async () => {
-    if (!user) {
-      setHistory([]);
-      setLoading(false);
-      return;
-    };
+  useEffect(() => {
     setLoading(true);
     try {
-      const q = query(collection(db, 'history'), where('userId', '==', user.uid), orderBy('timestamp', 'desc'));
-      const querySnapshot = await getDocs(q);
-      const historyData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as HistoryItem[];
-      setHistory(historyData);
+      const storedHistory = localStorage.getItem(HISTORY_STORAGE_KEY);
+      if (storedHistory) {
+        setHistory(JSON.parse(storedHistory));
+      }
     } catch (error) {
-      console.error('Failed to fetch history from Firestore', error);
+      console.error('Failed to load history from localStorage', error);
       setHistory([]);
     } finally {
       setLoading(false);
     }
-  }, [user]);
+  }, []);
 
-  useEffect(() => {
-    fetchHistory();
-  }, [fetchHistory]);
-
-  const addHistoryItem = useCallback(async (item: Omit<HistoryItem, 'id' | 'timestamp' | 'userId'>) => {
-    if (!user) return;
-    
-    const newHistoryItem: Omit<HistoryItem, 'id'> = {
+  const addHistoryItem = useCallback((item: Omit<HistoryItem, 'id' | 'timestamp'>) => {
+    const newHistoryItem: HistoryItem = {
       ...item,
-      userId: user.uid,
+      id: new Date().toISOString() + Math.random(),
       timestamp: new Date().toISOString(),
     };
-
-    try {
-      const docRef = await addDoc(collection(db, 'history'), newHistoryItem);
-      setHistory(prev => [{ ...newHistoryItem, id: docRef.id }, ...prev]);
-    } catch (error) {
-      console.error('Failed to save history to Firestore', error);
-    }
-  }, [user]);
-
-  const clearHistory = useCallback(async () => {
-    if (!user) return;
-    try {
-      // Create a copy to avoid mutation while iterating
-      const historyToDelete = [...history];
-      setHistory([]); // Optimistic update
-      for (const item of historyToDelete) {
-        await deleteDoc(doc(db, 'history', item.id));
+    
+    setHistory(prev => {
+      const updatedHistory = [newHistoryItem, ...prev];
+      try {
+        localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(updatedHistory));
+      } catch (error) {
+        console.error('Failed to save history to localStorage', error);
       }
+      return updatedHistory;
+    });
+  }, []);
+
+  const clearHistory = useCallback(() => {
+    setHistory([]);
+    try {
+      localStorage.removeItem(HISTORY_STORAGE_KEY);
     } catch (error) {
-      console.error('Failed to clear history from Firestore', error);
-      setHistory(history); // Revert on error
+      console.error('Failed to clear history from localStorage', error);
     }
-  }, [user, history]);
+  }, []);
 
   return (
     <HistoryContext.Provider value={{ history, loading, addHistoryItem, clearHistory }}>

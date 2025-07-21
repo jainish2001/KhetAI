@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { LanguageProvider } from '@/contexts/language-context';
-import { AuthProvider } from '@/contexts/auth-context';
 import { HistoryProvider } from '@/contexts/history-context';
 import { Toaster } from '@/components/ui/toaster';
 import AppShell from '@/components/app-shell';
@@ -25,12 +24,10 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased">
         <LanguageProvider>
-          <AuthProvider>
-            <HistoryProvider>
-              <AppShell>{children}</AppShell>
-              <Toaster />
-            </HistoryProvider>
-          </AuthProvider>
+          <HistoryProvider>
+            <AppShell>{children}</AppShell>
+            <Toaster />
+          </HistoryProvider>
         </LanguageProvider>
       </body>
     </html>
