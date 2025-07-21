@@ -20,8 +20,9 @@ const nextConfig: NextConfig = {
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
-      // These modules are server-side only, so we don't want to bundle them for the client
-      config.externals = [...(config.externals || []), 'async_hooks'];
+      // This is a workaround for the 'async_hooks' error. It tells Webpack to
+      // resolve 'async_hooks' to a false (empty) module on the client side.
+      config.resolve.alias.async_hooks = false;
     }
     return config;
   },
