@@ -1,4 +1,4 @@
-// use server'
+'use server';
 
 /**
  * @fileOverview Fetches and summarizes mandi price insights using the Agmarknet API and Gemini.

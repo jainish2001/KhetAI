@@ -14,6 +14,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/contexts/language-context';
 import { useHistory } from '@/contexts/history-context';
 import { Loader2, HandCoins } from 'lucide-react';
+import { getMandiPriceInsights } from '@/ai/flows/get-mandi-price-insights';
 
 const FormSchema = z.object({
   crop: z.string().min(2, 'Crop is required.'),
@@ -27,7 +28,7 @@ export default function MandiPricesPage() {
   const { toast } = useToast();
   const { addHistoryItem } = useHistory();
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<any | null>(null);
+  const [result, setResult] = useState<{ summary: string } | null>(null);
 
   const form = useForm<FormData>({
     resolver: zodResolver(FormSchema),
@@ -38,11 +39,9 @@ export default function MandiPricesPage() {
     setLoading(true);
     setResult(null);
     try {
-      // AI call removed
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
-      const mockResponse = { summary: 'This feature is currently disabled.' };
-      setResult(mockResponse);
-      // addHistoryItem({ type: 'mandi', query: data, response: mockResponse });
+      const response = await getMandiPriceInsights(data);
+      setResult(response);
+      addHistoryItem({ type: 'mandi', query: data, response });
     } catch (error) {
       console.error(error);
       toast({ title: t('insights_error'), variant: 'destructive' });

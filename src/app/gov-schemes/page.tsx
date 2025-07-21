@@ -15,6 +15,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/contexts/language-context';
 import { useHistory } from '@/contexts/history-context';
 import { Loader2, Building2 } from 'lucide-react';
+import { summarizeGovernmentScheme } from '@/ai/flows/summarize-government-scheme';
 
 const FormSchema = z.object({
   schemeName: z.string().min(2, 'Scheme name is required.'),
@@ -28,7 +29,7 @@ export default function GovSchemesPage() {
   const { toast } = useToast();
   const { addHistoryItem } = useHistory();
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<any | null>(null);
+  const [result, setResult] = useState<{ summary: string } | null>(null);
 
   const form = useForm<FormData>({
     resolver: zodResolver(FormSchema),
@@ -39,11 +40,9 @@ export default function GovSchemesPage() {
     setLoading(true);
     setResult(null);
     try {
-      // AI call removed
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
-      const mockResponse = { summary: 'This feature is currently disabled.' };
-      setResult(mockResponse);
-      // addHistoryItem({ type: 'scheme', query: data, response: mockResponse });
+      const response = await summarizeGovernmentScheme(data);
+      setResult(response);
+      addHistoryItem({ type: 'scheme', query: data, response });
     } catch (error) {
       console.error(error);
       toast({ title: t('summary_error'), variant: 'destructive' });

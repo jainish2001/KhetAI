@@ -12,6 +12,7 @@ import PageHeader from '@/components/page-header';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/contexts/language-context';
 import { useHistory } from '@/contexts/history-context';
+import { diagnoseCropDisease } from '@/ai/flows/diagnose-crop-disease';
 
 const FormSchema = z.object({
   image: z.any().refine((file) => file, 'Image is required.'),
@@ -26,7 +27,7 @@ export default function CropDiagnosisPage() {
   const [preview, setPreview] = useState<string | null>(null);
   const [dataUri, setDataUri] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<any | null>(null);
+  const [result, setResult] = useState<{ diagnosis: string } | null>(null);
 
   const form = useForm<FormData>({
     resolver: zodResolver(FormSchema),
@@ -62,11 +63,9 @@ export default function CropDiagnosisPage() {
     setLoading(true);
     setResult(null);
     try {
-      // AI call removed
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
-      const mockResponse = { diagnosis: 'This feature is currently disabled.' };
-      setResult(mockResponse);
-      // addHistoryItem({ type: 'crop', query: { image: dataUri }, response: mockResponse });
+      const response = await diagnoseCropDisease({ photoDataUri: dataUri });
+      setResult(response);
+      addHistoryItem({ type: 'crop', query: { image: dataUri }, response });
     } catch (error) {
       console.error(error);
       toast({ title: t('diagnosis_error'), variant: 'destructive' });
