@@ -1,0 +1,177 @@
+const translations = {
+  en: {
+    // App Shell
+    'home': 'Home',
+    'crop_health': 'Crop Health',
+    'mandi_prices': 'Mandi Prices',
+    'gov_schemes': 'Govt. Schemes',
+    'history': 'History',
+    'settings': 'Settings',
+    'login': 'Login',
+
+    // Home Page
+    'welcome_title': 'Welcome to Kisan Mitra AI',
+    'welcome_subtitle': 'Your personal farming assistant, powered by AI.',
+    'crop_health_diagnosis_title': 'Crop Health Diagnosis',
+    'crop_health_diagnosis_desc': 'Upload a photo of your crop to get an instant health diagnosis and recommendations.',
+    'mandi_price_insights_title': 'Mandi Price Insights',
+    'mandi_price_insights_desc': 'Get the latest market prices for your crops from your local mandi.',
+    'gov_schemes_info_title': 'Government Schemes',
+    'gov_schemes_info_desc': 'Ask about government schemes and get simplified information on benefits and eligibility.',
+    'query_history_title': 'Query History',
+    'query_history_desc': 'View your past queries and the advice you received from our AI.',
+
+    // Crop Diagnosis Page
+    'upload_crop_photo': 'Upload Crop Photo',
+    'upload_image_cta': 'Click to upload or drag and drop',
+    'diagnose_button': 'Diagnose Crop',
+    'diagnosis_placeholder': 'AI diagnosis will appear here...',
+    'diagnosis_error': 'Could not get diagnosis. Please try again.',
+    
+    // Mandi Prices Page
+    'mandi_prices_title': 'Mandi Price Insights',
+    'crop_label': 'Crop',
+    'crop_placeholder': 'e.g., Wheat, Rice',
+    'location_label': 'Location',
+    'location_placeholder': 'e.g., Delhi, Mumbai',
+    'get_insights_button': 'Get Insights',
+    'insights_placeholder': 'Price insights will appear here...',
+    'insights_error': 'Could not get price insights. Please try again.',
+    'speak_query_button': 'Speak your query',
+
+    // Gov Schemes Page
+    'gov_schemes_title': 'Government Scheme Information',
+    'scheme_name_label': 'Scheme Name',
+    'scheme_name_placeholder': 'e.g., PM Kisan Samman Nidhi',
+    'query_label': 'Your Question',
+    'query_placeholder': 'e.g., what are the benefits?',
+    'get_summary_button': 'Get Summary',
+    'summary_placeholder': 'Scheme summary will appear here...',
+    'summary_error': 'Could not get scheme summary. Please try again.',
+
+    // History Page
+    'history_title': 'Your Query History',
+    'history_empty': 'You have no saved queries yet.',
+    'query_type_crop': 'Crop Diagnosis',
+    'query_type_mandi': 'Mandi Price',
+    'query_type_scheme': 'Govt. Scheme',
+    'query_on': 'Query on',
+    'clear_history_button': 'Clear History',
+
+    // Login Page
+    'login_title': 'Login to Kisan Mitra AI',
+    'login_desc': 'Enter your phone number to receive a one-time password (OTP).',
+    'phone_number_label': 'Phone Number',
+    'phone_number_placeholder': '+91 12345 67890',
+    'send_otp_button': 'Send OTP',
+  },
+  hi: { // Hindi
+    'home': 'होम',
+    'crop_health': 'फसल स्वास्थ्य',
+    'mandi_prices': 'मंडी मूल्य',
+    'gov_schemes': 'सरकारी योजनाएं',
+    'history': 'इतिहास',
+    'settings': 'सेटिंग्स',
+    'login': 'लॉग इन करें',
+
+    'welcome_title': 'किसान मित्र AI में आपका स्वागत है',
+    'welcome_subtitle': 'आपका व्यक्तिगत खेती सहायक, AI द्वारा संचालित।',
+    'crop_health_diagnosis_title': 'फसल स्वास्थ्य निदान',
+    'crop_health_diagnosis_desc': 'तत्काल स्वास्थ्य निदान और सिफारिशें प्राप्त करने के लिए अपनी फसल की एक तस्वीर अपलोड करें।',
+    'mandi_price_insights_title': 'मंडी मूल्य जानकारी',
+    'mandi_price_insights_desc': 'अपनी स्थानीय मंडी से अपनी फसलों के लिए नवीनतम बाजार मूल्य प्राप्त करें।',
+    'gov_schemes_info_title': 'सरकारी योजनाएं',
+    'gov_schemes_info_desc': 'सरकारी योजनाओं के बारे में पूछें और लाभ और पात्रता पर सरलीकृत जानकारी प्राप्त करें।',
+    'query_history_title': 'क्वेरी इतिहास',
+    'query_history_desc': 'अपने पिछले प्रश्न और हमारे AI से मिली सलाह देखें।',
+
+    'upload_crop_photo': 'फसल की तस्वीर अपलोड करें',
+    'upload_image_cta': 'अपलोड करने के लिए क्लिक करें या खींचें और छोड़ें',
+    'diagnose_button': 'फसल का निदान करें',
+    'diagnosis_placeholder': 'AI निदान यहाँ दिखाई देगा...',
+    'diagnosis_error': 'निदान प्राप्त नहीं हो सका। कृपया पुनः प्रयास करें।',
+    
+    'mandi_prices_title': 'मंडी मूल्य जानकारी',
+    'crop_label': 'फसल',
+    'crop_placeholder': 'जैसे, गेहूँ, चावल',
+    'location_label': 'स्थान',
+    'location_placeholder': 'जैसे, दिल्ली, मुंबई',
+    'get_insights_button': 'जानकारी प्राप्त करें',
+    'insights_placeholder': 'मूल्य की जानकारी यहाँ दिखाई देगी...',
+    'insights_error': 'मूल्य जानकारी प्राप्त नहीं हो सकी। कृपया पुनः प्रयास करें।',
+    'speak_query_button': 'अपना प्रश्न बोलें',
+    
+    'gov_schemes_title': 'सरकारी योजना की जानकारी',
+    'scheme_name_label': 'योजना का नाम',
+    'scheme_name_placeholder': 'जैसे, पीएम किसान सम्मान निधि',
+    'query_label': 'आपका प्रश्न',
+    'query_placeholder': 'जैसे, क्या लाभ हैं?',
+    'get_summary_button': 'सारांश प्राप्त करें',
+    'summary_placeholder': 'योजना का सारांश यहाँ दिखाई देगा...',
+    'summary_error': 'योजना का सारांश प्राप्त नहीं हो सका। कृपया पुनः प्रयास करें।',
+
+    'history_title': 'आपका क्वेरी इतिहास',
+    'history_empty': 'आपके पास अभी तक कोई सहेजी गई क्वेरी नहीं है।',
+    'query_type_crop': 'फसल निदान',
+    'query_type_mandi': 'मंडी मूल्य',
+    'query_type_scheme': 'सरकारी योजना',
+    'query_on': 'क्वेरी पर',
+    'clear_history_button': 'इतिहास साफ़ करें',
+    
+    'login_title': 'किसान मित्र AI में लॉग इन करें',
+    'login_desc': 'एक बार का पासवर्ड (OTP) प्राप्त करने के लिए अपना फ़ोन नंबर दर्ज करें।',
+    'phone_number_label': 'फ़ोन नंबर',
+    'phone_number_placeholder': '+91 12345 67890',
+    'send_otp_button': 'OTP भेजें',
+  },
+  kn: { // Kannada
+    'home': 'ಮನೆ',
+    'crop_health': 'ಬೆಳೆ ಆರೋಗ್ಯ',
+    'mandi_prices': 'ಮಂಡಿ ಬೆಲೆಗಳು',
+    'gov_schemes': 'ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು',
+    'history': 'ಇತಿಹಾಸ',
+    'settings': 'ಸಂಯೋಜನೆಗಳು',
+    'login': 'ಲಾಗಿನ್',
+
+    'welcome_title': 'ಕಿಸಾನ್ ಮಿತ್ರ AI ಗೆ ಸುಸ್ವಾಗತ',
+    'welcome_subtitle': 'ನಿಮ್ಮ ವೈಯಕ್ತಿಕ ಕೃಷಿ ಸಹಾಯಕ, AI ನಿಂದ ಚಾಲಿತವಾಗಿದೆ.',
+  },
+  mr: { // Marathi
+    'home': 'घर',
+    'crop_health': 'पीक आरोग्य',
+    'mandi_prices': 'मंडई भाव',
+    'gov_schemes': 'सरकारी योजना',
+    'history': 'इतिहास',
+    'settings': 'सेटिंग्ज',
+    'login': 'लॉगिन करा',
+
+    'welcome_title': 'किसान मित्र AI मध्ये आपले स्वागत आहे',
+    'welcome_subtitle': 'तुमचे वैयक्तिक शेती सहाय्यक, AI द्वारा समर्थित.',
+  },
+  ta: { // Tamil
+    'home': 'Accueil',
+    'crop_health': 'பயிர் ஆரோக்கியம்',
+    'mandi_prices': 'மண்டி விலைகள்',
+    'gov_schemes': 'அரசு திட்டங்கள்',
+    'history': 'வரலாறு',
+    'settings': 'அமைப்புகள்',
+    'login': 'உள்நுழை',
+
+    'welcome_title': 'கிசான் மித்ரா AI க்கு வரவேற்கிறோம்',
+    'welcome_subtitle': 'உங்கள் தனிப்பட்ட விவசாய உதவியாளர், AI மூலம் இயக்கப்படுகிறது.',
+  },
+  ml: { // Malayalam
+    'home': 'ഹോം',
+    'crop_health': 'വിള ആരോഗ്യം',
+    'mandi_prices': 'മണ്ഡി വിലകൾ',
+    'gov_schemes': 'സർക്കാർ പദ്ധതികൾ',
+    'history': 'ചരിത്രം',
+    'settings': 'ക്രമീകരണങ്ങൾ',
+    'login': 'ലോഗിൻ',
+
+    'welcome_title': 'കിസാൻ മിത്ര AI-ലേക്ക് സ്വാഗതം',
+    'welcome_subtitle': 'നിങ്ങളുടെ വ്യക്തിഗത കാർഷിക സഹായി, AI നൽകുന്നത്.',
+  }
+};
+
+export default translations as Record<string, Record<string, string>>;
