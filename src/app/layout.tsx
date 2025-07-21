@@ -5,7 +5,7 @@ import { Toaster } from '@/components/ui/toaster';
 import AppShell from '@/components/app-shell';
 
 export const metadata: Metadata = {
-  title: 'Kisan Mitra AI',
+  title: 'KhetAI',
   description: 'An AI-powered personal farming assistant for Indian farmers.',
 };
 

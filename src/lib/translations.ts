@@ -10,7 +10,7 @@ const translations = {
     'login': 'Login',
 
     // Home Page
-    'welcome_title': 'Welcome to Kisan Mitra AI',
+    'welcome_title': 'Welcome to KhetAI',
     'welcome_subtitle': 'Your personal farming assistant, powered by AI.',
     'crop_health_diagnosis_title': 'Crop Health Diagnosis',
     'crop_health_diagnosis_desc': 'Upload a photo of your crop to get an instant health diagnosis and recommendations.',
@@ -59,7 +59,7 @@ const translations = {
     'clear_history_button': 'Clear History',
 
     // Login Page
-    'login_title': 'Login to Kisan Mitra AI',
+    'login_title': 'Login to KhetAI',
     'login_desc': 'Enter your phone number to receive a one-time password (OTP).',
     'phone_number_label': 'Phone Number',
     'phone_number_placeholder': '+91 12345 67890',
@@ -74,7 +74,7 @@ const translations = {
     'settings': 'सेटिंग्स',
     'login': 'लॉग इन करें',
 
-    'welcome_title': 'किसान मित्र AI में आपका स्वागत है',
+    'welcome_title': 'खेतAI में आपका स्वागत है',
     'welcome_subtitle': 'आपका व्यक्तिगत खेती सहायक, AI द्वारा संचालित।',
     'crop_health_diagnosis_title': 'फसल स्वास्थ्य निदान',
     'crop_health_diagnosis_desc': 'तत्काल स्वास्थ्य निदान और सिफारिशें प्राप्त करने के लिए अपनी फसल की एक तस्वीर अपलोड करें।',
@@ -118,7 +118,7 @@ const translations = {
     'query_on': 'क्वेरी पर',
     'clear_history_button': 'इतिहास साफ़ करें',
     
-    'login_title': 'किसान मित्र AI में लॉग इन करें',
+    'login_title': 'खेतAI में लॉग इन करें',
     'login_desc': 'एक बार का पासवर्ड (OTP) प्राप्त करने के लिए अपना फ़ोन नंबर दर्ज करें।',
     'phone_number_label': 'फ़ोन नंबर',
     'phone_number_placeholder': '+91 12345 67890',

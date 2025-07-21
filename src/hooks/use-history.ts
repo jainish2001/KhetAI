@@ -14,7 +14,7 @@ export function useHistory() {
 
   useEffect(() => {
     try {
-      const storedHistory = localStorage.getItem('kisan-mitra-history');
+      const storedHistory = localStorage.getItem('khetai-history');
       if (storedHistory) {
         setHistory(JSON.parse(storedHistory));
       }
@@ -33,7 +33,7 @@ export function useHistory() {
       };
       const updatedHistory = [newHistoryItem, ...prevHistory];
       try {
-        localStorage.setItem('kisan-mitra-history', JSON.stringify(updatedHistory));
+        localStorage.setItem('khetai-history', JSON.stringify(updatedHistory));
       } catch (error) {
         console.error('Failed to save history to localStorage', error);
       }
@@ -44,7 +44,7 @@ export function useHistory() {
   const clearHistory = useCallback(() => {
     setHistory([]);
     try {
-      localStorage.removeItem('kisan-mitra-history');
+      localStorage.removeItem('khetai-history');
     } catch (error) {
       console.error('Failed to clear history from localStorage', error);
     }
