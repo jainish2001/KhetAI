@@ -86,18 +86,23 @@ const summarizeMandiPriceDataPrompt = ai.definePrompt({
 Crop: {{{crop}}}
 Location: {{{location}}}
 
-Summarize the recent mandi price trends for the farmer in a concise, easy-to-understand way.
-Your response MUST follow this format:
-- State the average modal price clearly.
-- Mention the price range (min and max) across the different markets.
-- Give a simple recommendation on where they might get the best price.
-- ALWAYS use the Indian Rupee symbol (₹).
-- State that the prices are per quintal.
-- Present the final answer as a single, well-structured paragraph.
+Analyze the data and provide a concise, easy-to-understand summary for a farmer.
 
-For example: "The current market price of Wheat in Delhi is approximately ₹2500 per quintal. Prices are ranging from ₹2300 to ₹2800 across different markets. For the best price, you should consider visiting the Delhi Main Market."
+Your summary should be a single paragraph and must include:
+- The approximate average price.
+- The general price range (minimum and maximum).
+- A simple recommendation on where they might get the best price.
+
+IMPORTANT:
+- ALWAYS use the Indian Rupee symbol (₹).
+- ALWAYS state that the prices are per quintal.
+- Your entire response will be contained within the 'summary' field of a JSON object.
+
+Example Output Format:
+"The current market price for Wheat in Delhi is approximately ₹2500 per quintal, with prices ranging from ₹2300 to ₹2800 across different markets. You may find the best price at the Delhi Main Market."
 `,
 });
+
 
 const getMandiPriceInsightsFlow = ai.defineFlow(
   {
