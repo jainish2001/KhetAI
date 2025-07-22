@@ -44,7 +44,7 @@ const getAgmarknetData = ai.defineTool({
 
 const summarizeMandiPriceDataPrompt = ai.definePrompt({
   name: 'summarizeMandiPriceDataPrompt',
-  model: 'googleai/gemini-1.5-flash-001',
+  model: 'googleai/gemini-1.5-flash',
   tools: [getAgmarknetData],
   input: {schema: z.object({
     crop: z.string().describe('The crop to get mandi price insights for.'),
