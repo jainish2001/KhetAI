@@ -81,14 +81,11 @@ const summarizeMandiPriceDataPrompt = ai.definePrompt({
     location: z.string().describe('The location (e.g., city, district) to get mandi price insights for.'),
   })},
   output: {schema: GetMandiPriceInsightsOutputSchema},
-  prompt: `You are an expert agricultural analyst. Using the getAgmarknetData tool, retrieve the mandi price data for the following crop and location.
-
-Crop: {{{crop}}}
-Location: {{{location}}}
+  prompt: `You are an expert agricultural analyst. Use the getAgmarknetData tool to find the price for {{{crop}}} in {{{location}}}.
 
 Analyze the data and provide a concise, easy-to-understand summary for a farmer.
 
-Your summary should be a single paragraph and must include:
+Your summary must be a single paragraph and include:
 - The approximate average price.
 - The general price range (minimum and maximum).
 - A simple recommendation on where they might get the best price.
@@ -96,11 +93,9 @@ Your summary should be a single paragraph and must include:
 IMPORTANT:
 - ALWAYS use the Indian Rupee symbol (₹).
 - ALWAYS state that the prices are per quintal.
-- Your entire response will be contained within the 'summary' field of a JSON object.
 
-Example Output Format:
-"The current market price for Wheat in Delhi is approximately ₹2500 per quintal, with prices ranging from ₹2300 to ₹2800 across different markets. You may find the best price at the Delhi Main Market."
-`,
+Example Output:
+"The current market price for Wheat in Delhi is approximately ₹2500 per quintal, with prices ranging from ₹2300 to ₹2800 across different markets. You may find the best price at the Delhi Main Market."`,
 });
 
 
