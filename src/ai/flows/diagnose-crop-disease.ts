@@ -33,7 +33,7 @@ export async function diagnoseCropDisease(input: DiagnoseCropDiseaseInput): Prom
 
 const prompt = ai.definePrompt({
   name: 'diagnoseCropDiseasePrompt',
-  model: 'googleai/gemini-1.5-flash',
+  model: 'googleai/gemini-1.5-flash-001',
   input: {schema: z.object({
     photoDataUri: z.string(),
     query: z.string(),

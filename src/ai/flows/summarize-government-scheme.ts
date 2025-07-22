@@ -31,7 +31,7 @@ export async function summarizeGovernmentScheme(input: SummarizeGovernmentScheme
 
 const summarizeGovernmentSchemePrompt = ai.definePrompt({
   name: 'summarizeGovernmentSchemePrompt',
-  model: 'googleai/gemini-1.5-flash',
+  model: 'googleai/gemini-1.5-flash-001',
   input: {schema: z.object({
     schemeName: z.string(),
     query: z.string(),
