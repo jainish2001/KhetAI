@@ -46,6 +46,7 @@ const getAgmarknetData = ai.defineTool({
     crop: crop,
     location: location,
     date: new Date().toISOString().split('T')[0],
+    unit: 'quintal',
     markets: [
       {
         name: `${location} Main Market`,
@@ -80,14 +81,22 @@ const summarizeMandiPriceDataPrompt = ai.definePrompt({
     location: z.string().describe('The location (e.g., city, district) to get mandi price insights for.'),
   })},
   output: {schema: GetMandiPriceInsightsOutputSchema},
-  prompt: `You are an expert agricultural analyst.  Using the getAgmarknetData tool, retrieve the mandi price data for the following crop and location, and summarize the recent price trends for a farmer.
+  prompt: `You are an expert agricultural analyst. Using the getAgmarknetData tool, retrieve the mandi price data for the following crop and location.
 
 Crop: {{{crop}}}
 Location: {{{location}}}
 
 Summarize the recent mandi price trends for the farmer in a concise, easy-to-understand way.
-Mention the different prices in the various markets provided and give a simple recommendation on where they might get the best price.
-Present the answer in a single paragraph.`,
+Your response MUST follow this format:
+- State the average modal price clearly.
+- Mention the price range (min and max) across the different markets.
+- Give a simple recommendation on where they might get the best price.
+- ALWAYS use the Indian Rupee symbol (₹).
+- State that the prices are per quintal.
+- Present the final answer as a single, well-structured paragraph.
+
+For example: "The current market price of Wheat in Delhi is approximately ₹2500 per quintal. Prices are ranging from ₹2300 to ₹2800 across different markets. For the best price, you should consider visiting the Delhi Main Market."
+`,
 });
 
 const getMandiPriceInsightsFlow = ai.defineFlow(
