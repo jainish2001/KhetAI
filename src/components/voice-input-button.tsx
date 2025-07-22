@@ -12,7 +12,7 @@ interface VoiceInputButtonProps {
 }
 
 export default function VoiceInputButton({ onTranscript, disabled }: VoiceInputButtonProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { toast } = useToast();
   const [isListening, setIsListening] = useState(false);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
@@ -20,14 +20,13 @@ export default function VoiceInputButton({ onTranscript, disabled }: VoiceInputB
   useEffect(() => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
-      // Silently disable if not supported, or show toast on first attempt
       return;
     }
 
     const recognition = new SpeechRecognition();
     recognition.continuous = false;
     recognition.interimResults = false;
-    recognition.lang = 'en-US'; // This can be dynamic based on language context
+    recognition.lang = language; 
 
     recognition.onstart = () => setIsListening(true);
     recognition.onend = () => setIsListening(false);
@@ -50,7 +49,7 @@ export default function VoiceInputButton({ onTranscript, disabled }: VoiceInputB
     return () => {
       recognition.stop();
     };
-  }, [onTranscript, toast]);
+  }, [onTranscript, toast, language]);
 
   const handleToggleListening = () => {
     if (disabled) return;
@@ -67,7 +66,15 @@ export default function VoiceInputButton({ onTranscript, disabled }: VoiceInputB
     if (isListening) {
       recognitionRef.current.stop();
     } else {
-      recognitionRef.current.start();
+      try {
+        recognitionRef.current.start();
+      } catch(e) {
+         toast({
+          title: 'Could not start listening',
+          description: 'Please ensure microphone permissions are granted.',
+          variant: 'destructive',
+        });
+      }
     }
   };
 
@@ -79,8 +86,9 @@ export default function VoiceInputButton({ onTranscript, disabled }: VoiceInputB
       onClick={handleToggleListening}
       disabled={disabled}
       aria-label={t('speak_query_button')}
+      className="p-2 h-auto"
     >
-      {isListening ? <MicOff /> : <Mic />}
+      {isListening ? <MicOff className="h-6 w-6"/> : <Mic className="h-6 w-6"/>}
     </Button>
   );
 }

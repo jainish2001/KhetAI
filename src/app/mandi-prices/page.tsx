@@ -24,7 +24,7 @@ const FormSchema = z.object({
 type FormData = z.infer<typeof FormSchema>;
 
 export default function MandiPricesPage() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { toast } = useToast();
   const { addHistoryItem } = useHistory();
   const [loading, setLoading] = useState(false);
@@ -39,7 +39,7 @@ export default function MandiPricesPage() {
     setLoading(true);
     setResult(null);
     try {
-      const response = await getMandiPriceInsights(data);
+      const response = await getMandiPriceInsights({ ...data, targetLanguage: language });
       setResult(response);
       addHistoryItem({ type: 'mandi', query: data, response });
     } catch (error) {
@@ -68,7 +68,13 @@ export default function MandiPricesPage() {
                     <FormItem>
                       <FormLabel className="text-lg">{t('crop_label')}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t('crop_placeholder')} {...field} className="text-base p-6" />
+                        <div className="flex items-center gap-2">
+                           <Input placeholder={t('crop_placeholder')} {...field} className="text-base p-6 flex-1" />
+                           <VoiceInputButton
+                            disabled={loading}
+                            onTranscript={(text) => form.setValue('crop', text)}
+                           />
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -81,8 +87,8 @@ export default function MandiPricesPage() {
                     <FormItem>
                       <FormLabel className="text-lg">{t('location_label')}</FormLabel>
                       <FormControl>
-                        <div className="flex gap-2">
-                           <Input placeholder={t('location_placeholder')} {...field} className="text-base p-6" />
+                        <div className="flex items-center gap-2">
+                           <Input placeholder={t('location_placeholder')} {...field} className="text-base p-6 flex-1" />
                            <VoiceInputButton
                             disabled={loading}
                             onTranscript={(text) => form.setValue('location', text)}

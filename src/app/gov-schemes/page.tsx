@@ -25,7 +25,7 @@ const FormSchema = z.object({
 type FormData = z.infer<typeof FormSchema>;
 
 export default function GovSchemesPage() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { toast } = useToast();
   const { addHistoryItem } = useHistory();
   const [loading, setLoading] = useState(false);
@@ -40,7 +40,7 @@ export default function GovSchemesPage() {
     setLoading(true);
     setResult(null);
     try {
-      const response = await summarizeGovernmentScheme(data);
+      const response = await summarizeGovernmentScheme({ ...data, targetLanguage: language });
       setResult(response);
       addHistoryItem({ type: 'scheme', query: data, response });
     } catch (error) {
@@ -82,8 +82,8 @@ export default function GovSchemesPage() {
                     <FormItem>
                       <FormLabel className="text-lg">{t('query_label')}</FormLabel>
                       <FormControl>
-                        <div className="flex gap-2">
-                           <Textarea placeholder={t('query_placeholder')} {...field} className="text-base p-4" rows={3} />
+                        <div className="flex items-center gap-2">
+                           <Textarea placeholder={t('query_placeholder')} {...field} className="text-base p-4 flex-1" rows={3} />
                            <VoiceInputButton
                             disabled={loading}
                             onTranscript={(text) => form.setValue('query', text)}

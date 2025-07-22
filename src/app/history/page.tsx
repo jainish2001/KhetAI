@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useHistory, HistoryItem } from '@/contexts/history-context';
 import { useLanguage } from '@/contexts/language-context';
 import PageHeader from '@/components/page-header';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { Leaf, HandCoins, Building2, Trash2, History as HistoryIcon } from 'lucide-react';
@@ -22,8 +22,13 @@ const QueryDetails: React.FC<{ item: HistoryItem, t: (key: string) => string }> 
     case 'crop':
       return (
         <div className="flex flex-col sm:flex-row gap-4">
-          <Image src={item.query.image} alt="Queried crop image" width={100} height={100} className="rounded-lg object-cover" />
-          <p className="text-base text-foreground flex-1">{item.response.diagnosis}</p>
+          <div className="flex-shrink-0">
+             <Image src={item.query.image} alt="Queried crop image" width={100} height={100} className="rounded-lg object-cover" />
+          </div>
+          <div className="flex-1">
+            <p className="font-semibold">{t('query_label')}: <span className="font-normal">{item.query.query}</span></p>
+            <p className="mt-4 text-base text-foreground">{item.response.diagnosis}</p>
+          </div>
         </div>
       );
     case 'mandi':
@@ -53,7 +58,7 @@ export default function HistoryPage() {
 
   const getTitle = (item: HistoryItem) => {
     switch (item.type) {
-      case 'crop': return t('query_type_crop');
+      case 'crop': return `${t('query_type_crop')} - ${item.query.query}`;
       case 'mandi': return `${t('query_type_mandi')} - ${item.query.crop}`;
       case 'scheme': return `${t('query_type_scheme')} - ${item.query.schemeName}`;
       default: return 'Query';
@@ -73,9 +78,9 @@ export default function HistoryPage() {
       <main className="flex-1 overflow-y-auto p-4 md:p-6">
         {loading ? (
           <div className="space-y-4">
-            <Skeleton className="h-20 w-full" />
-            <Skeleton className="h-20 w-full" />
-            <Skeleton className="h-20 w-full" />
+            <Skeleton className="h-24 w-full" />
+            <Skeleton className="h-24 w-full" />
+            <Skeleton className="h-24 w-full" />
           </div>
         ) : history.length === 0 ? (
           <Card className="text-center py-16">
@@ -91,10 +96,10 @@ export default function HistoryPage() {
             {history.map((item) => (
               <AccordionItem value={item.id} key={item.id} className="bg-card border rounded-lg">
                 <AccordionTrigger className="p-4 text-lg font-semibold hover:no-underline">
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-4 text-left">
                     {ICONS[item.type]}
-                    <div className="text-left">
-                      <span>{getTitle(item)}</span>
+                    <div className="flex-1">
+                      <span className="block truncate">{getTitle(item)}</span>
                       <p className="text-sm font-normal text-muted-foreground">
                         {formatDistanceToNow(new Date(item.timestamp), { addSuffix: true })}
                       </p>

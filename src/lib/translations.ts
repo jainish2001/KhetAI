@@ -27,7 +27,10 @@ const translations = {
     'upload_image_cta': 'Click to upload or drag and drop',
     'diagnose_button': 'Diagnose Crop',
     'diagnosis_placeholder': 'AI diagnosis will appear here...',
+    'diagnosis_in_progress': 'Diagnosing...',
+    'diagnosis_result_title': 'Diagnosis Result',
     'diagnosis_error': 'Could not get diagnosis. Please try again.',
+    'crop_query_placeholder': 'e.g., What is this disease and how can I treat it?',
     
     // Mandi Prices Page
     'mandi_prices_title': 'Mandi Price Insights',
@@ -94,7 +97,10 @@ const translations = {
     'upload_image_cta': 'अपलोड करने के लिए क्लिक करें या खींचें और छोड़ें',
     'diagnose_button': 'फसल का निदान करें',
     'diagnosis_placeholder': 'AI निदान यहाँ दिखाई देगा...',
+    'diagnosis_in_progress': 'निदान हो रहा है...',
+    'diagnosis_result_title': 'निदान परिणाम',
     'diagnosis_error': 'निदान प्राप्त नहीं हो सका। कृपया पुनः प्रयास करें।',
+    'crop_query_placeholder': 'जैसे, यह कौन सी बीमारी है और मैं इसका इलाज कैसे कर सकता हूँ?',
     
     'mandi_prices_title': 'मंडी मूल्य जानकारी',
     'crop_label': 'फसल',

@@ -8,20 +8,24 @@ import { z } from 'zod';
 import { Upload, X, Loader2, Leaf } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Textarea } from '@/components/ui/textarea';
 import PageHeader from '@/components/page-header';
+import VoiceInputButton from '@/components/voice-input-button';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/contexts/language-context';
 import { useHistory } from '@/contexts/history-context';
 import { diagnoseCropDisease } from '@/ai/flows/diagnose-crop-disease';
 
 const FormSchema = z.object({
-  image: z.any().refine((file) => file, 'Image is required.'),
+  image: z.any().refine((files) => files?.length > 0, 'Image is required.'),
+  query: z.string().min(1, 'Query is required.'),
 });
 
 type FormData = z.infer<typeof FormSchema>;
 
 export default function CropDiagnosisPage() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { toast } = useToast();
   const { addHistoryItem } = useHistory();
   const [preview, setPreview] = useState<string | null>(null);
@@ -31,12 +35,13 @@ export default function CropDiagnosisPage() {
 
   const form = useForm<FormData>({
     resolver: zodResolver(FormSchema),
+    defaultValues: { image: undefined, query: '' },
   });
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      form.setValue('image', file);
+      form.setValue('image', event.target.files);
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreview(reader.result as string);
@@ -55,7 +60,7 @@ export default function CropDiagnosisPage() {
     if (fileInput) fileInput.value = '';
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (data: FormData) => {
     if (!dataUri) {
       toast({ title: 'No image selected', description: 'Please upload an image first.', variant: 'destructive' });
       return;
@@ -63,9 +68,9 @@ export default function CropDiagnosisPage() {
     setLoading(true);
     setResult(null);
     try {
-      const response = await diagnoseCropDisease({ photoDataUri: dataUri });
+      const response = await diagnoseCropDisease({ photoDataUri: dataUri, query: data.query, targetLanguage: language });
       setResult(response);
-      addHistoryItem({ type: 'crop', query: { image: dataUri }, response });
+      addHistoryItem({ type: 'crop', query: { image: dataUri, query: data.query }, response });
     } catch (error) {
       console.error(error);
       toast({ title: t('diagnosis_error'), variant: 'destructive' });
@@ -78,45 +83,76 @@ export default function CropDiagnosisPage() {
     <div className="flex flex-col h-full">
       <PageHeader title={t('crop_health_diagnosis_title')} />
       <main className="flex-1 overflow-y-auto p-4 md:p-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>{t('upload_crop_photo')}</CardTitle>
-            <CardDescription>{t('upload_image_cta')}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col items-center gap-4">
-              <label htmlFor="file-upload" className="w-full cursor-pointer">
-                <div className="relative flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg border-border hover:bg-muted transition-colors">
-                  {preview ? (
-                    <>
-                      <Image src={preview} alt="Crop preview" layout="fill" objectFit="contain" className="rounded-lg p-2" />
-                      <Button variant="destructive" size="icon" className="absolute top-2 right-2 z-10" onClick={(e) => { e.preventDefault(); clearImage(); }}>
-                        <X className="h-4 w-4" />
-                      </Button>
-                    </>
-                  ) : (
-                    <div className="flex flex-col items-center justify-center text-center">
-                      <Upload className="h-12 w-12 text-muted-foreground" />
-                      <p className="mt-2 text-sm text-muted-foreground">{t('upload_image_cta')}</p>
-                    </div>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>{t('upload_crop_photo')}</CardTitle>
+                <CardDescription>{t('upload_image_cta')}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <FormField
+                  control={form.control}
+                  name="image"
+                  render={() => (
+                    <FormItem>
+                      <FormControl>
+                        <label htmlFor="file-upload" className="w-full cursor-pointer">
+                          <div className="relative flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg border-border hover:bg-muted transition-colors">
+                            {preview ? (
+                              <>
+                                <Image src={preview} alt="Crop preview" layout="fill" objectFit="contain" className="rounded-lg p-2" />
+                                <Button variant="destructive" size="icon" className="absolute top-2 right-2 z-10" onClick={(e) => { e.preventDefault(); clearImage(); }}>
+                                  <X className="h-4 w-4" />
+                                </Button>
+                              </>
+                            ) : (
+                              <div className="flex flex-col items-center justify-center text-center">
+                                <Upload className="h-12 w-12 text-muted-foreground" />
+                                <p className="mt-2 text-sm text-muted-foreground">{t('upload_image_cta')}</p>
+                              </div>
+                            )}
+                          </div>
+                        </label>
+                      </FormControl>
+                      <FormMessage />
+                      <input id="file-upload" type="file" accept="image/*" className="hidden" onChange={handleFileChange} disabled={loading} />
+                    </FormItem>
                   )}
-                </div>
-              </label>
-              <input id="file-upload" type="file" accept="image/*" className="hidden" onChange={handleFileChange} disabled={loading} />
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button onClick={onSubmit} disabled={!preview || loading} className="w-full text-lg p-6">
-              {loading ? <Loader2 className="mr-2 h-6 w-6 animate-spin" /> : <Leaf className="mr-2 h-6 w-6" />}
-              {t('diagnose_button')}
-            </Button>
-          </CardFooter>
-        </Card>
-
+                />
+                <FormField
+                  control={form.control}
+                  name="query"
+                  render={({ field }) => (
+                    <FormItem className="mt-6">
+                      <FormLabel className="text-lg">{t('query_label')}</FormLabel>
+                      <FormControl>
+                        <div className="flex items-center gap-2">
+                          <Textarea placeholder={t('crop_query_placeholder')} {...field} className="text-base p-4 flex-1" rows={2} />
+                           <VoiceInputButton
+                            disabled={loading}
+                            onTranscript={(text) => form.setValue('query', text)}
+                          />
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </CardContent>
+              <CardFooter>
+                <Button type="submit" disabled={loading} className="w-full text-lg p-6">
+                  {loading ? <Loader2 className="mr-2 h-6 w-6 animate-spin" /> : <Leaf className="mr-2 h-6 w-6" />}
+                  {t('diagnose_button')}
+                </Button>
+              </CardFooter>
+            </Card>
+          </form>
+        </Form>
         {(loading || result) && (
           <Card className="mt-6">
             <CardHeader>
-              <CardTitle>{loading ? 'Diagnosing...' : 'Diagnosis Result'}</CardTitle>
+              <CardTitle>{loading ? t('diagnosis_in_progress') : t('diagnosis_result_title')}</CardTitle>
             </CardHeader>
             <CardContent className="text-base leading-relaxed">
               {loading && <div className="flex items-center gap-2"><Loader2 className="h-5 w-5 animate-spin" /> <p>{t('diagnosis_placeholder')}</p></div>}

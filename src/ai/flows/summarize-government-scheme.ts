@@ -10,10 +10,13 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import { translateText } from './translate-text';
+
 
 const SummarizeGovernmentSchemeInputSchema = z.object({
   schemeName: z.string().describe('The name of the government scheme to summarize.'),
   query: z.string().describe('The query about the government scheme.'),
+  targetLanguage: z.string().describe('The language to translate the response to (e.g., "hi", "en").'),
 });
 export type SummarizeGovernmentSchemeInput = z.infer<typeof SummarizeGovernmentSchemeInputSchema>;
 
@@ -28,7 +31,10 @@ export async function summarizeGovernmentScheme(input: SummarizeGovernmentScheme
 
 const summarizeGovernmentSchemePrompt = ai.definePrompt({
   name: 'summarizeGovernmentSchemePrompt',
-  input: {schema: SummarizeGovernmentSchemeInputSchema},
+  input: {schema: z.object({
+    schemeName: z.string(),
+    query: z.string(),
+  })},
   output: {schema: SummarizeGovernmentSchemeOutputSchema},
   prompt: `You are an expert in Indian government agricultural schemes.
   You will provide a simplified summary of the scheme based on the user's query.
@@ -46,8 +52,12 @@ const summarizeGovernmentSchemeFlow = ai.defineFlow(
     inputSchema: SummarizeGovernmentSchemeInputSchema,
     outputSchema: SummarizeGovernmentSchemeOutputSchema,
   },
-  async input => {
-    const {output} = await summarizeGovernmentSchemePrompt(input);
-    return output!;
+  async ({ schemeName, query, targetLanguage }) => {
+    const {output} = await summarizeGovernmentSchemePrompt({ schemeName, query });
+    if (!output) {
+      throw new Error('Failed to get summary from the model.');
+    }
+    const translatedSummary = await translateText({ text: output.summary, targetLanguage });
+    return { summary: translatedSummary.translatedText };
   }
 );

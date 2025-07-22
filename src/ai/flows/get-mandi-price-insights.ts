@@ -10,10 +10,12 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import { translateText } from './translate-text';
 
 const GetMandiPriceInsightsInputSchema = z.object({
   crop: z.string().describe('The crop to get mandi price insights for.'),
   location: z.string().describe('The location (e.g., city, district) to get mandi price insights for.'),
+  targetLanguage: z.string().describe('The language to translate the response to (e.g., "hi", "en").'),
 });
 export type GetMandiPriceInsightsInput = z.infer<typeof GetMandiPriceInsightsInputSchema>;
 
@@ -62,8 +64,12 @@ const getMandiPriceInsightsFlow = ai.defineFlow(
     inputSchema: GetMandiPriceInsightsInputSchema,
     outputSchema: GetMandiPriceInsightsOutputSchema,
   },
-  async input => {
-    const {output} = await summarizeMandiPriceDataPrompt(input);
-    return output!;
+  async ({ crop, location, targetLanguage }) => {
+    const {output} = await summarizeMandiPriceDataPrompt({ crop, location });
+    if (!output) {
+      throw new Error('Failed to get insights from the model.');
+    }
+    const translatedSummary = await translateText({ text: output.summary, targetLanguage });
+    return { summary: translatedSummary.translatedText };
   }
 );
