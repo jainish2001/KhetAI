@@ -1,5 +1,5 @@
 'use client';
-import { Leaf, HandCoins, Building2, History } from 'lucide-react';
+import { Leaf, HandCoins, Building2, Settings } from 'lucide-react';
 import FeatureCard from '@/components/feature-card';
 import PageHeader from '@/components/page-header';
 import { useLanguage } from '@/contexts/language-context';
@@ -27,10 +27,10 @@ export default function Home() {
       icon: <Building2 className="h-12 w-12 text-primary" />,
     },
      {
-      title: t('query_history_title'),
+      title: t('settings'),
       description: t('query_history_desc'),
-      href: '/history',
-      icon: <History className="h-12 w-12 text-primary" />,
+      href: '/settings',
+      icon: <Settings className="h-12 w-12 text-primary" />,
     },
   ];
 

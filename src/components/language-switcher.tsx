@@ -14,6 +14,7 @@ const languages = [
   { value: 'en', label: 'English' },
   { value: 'hi', label: 'हिंदी (Hindi)' },
   { value: 'kn', label: 'ಕನ್ನಡ (Kannada)' },
+  { value: 'te', label: 'తెలుగు (Telugu)' },
   { value: 'mr', label: 'मराठी (Marathi)' },
   { value: 'ta', label: 'தமிழ் (Tamil)' },
   { value: 'ml', label: 'മലയാളം (Malayalam)' },

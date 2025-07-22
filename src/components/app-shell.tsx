@@ -7,7 +7,6 @@ import {
   Leaf,
   HandCoins,
   Building2,
-  History,
   Settings,
 } from 'lucide-react';
 import {
@@ -35,7 +34,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     { href: '/crop-diagnosis', label: t('crop_health'), icon: Leaf },
     { href: '/mandi-prices', label: t('mandi_prices'), icon: HandCoins },
     { href: '/gov-schemes', label: t('gov_schemes'), icon: Building2 },
-    { href: '/history', label: t('history'), icon: History },
   ];
 
   return (
