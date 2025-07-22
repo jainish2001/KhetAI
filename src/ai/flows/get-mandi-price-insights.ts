@@ -28,6 +28,7 @@ export async function getMandiPriceInsights(input: GetMandiPriceInsightsInput): 
   return getMandiPriceInsightsFlow(input);
 }
 
+// This is a mock tool. In a real application, this would call an external API.
 const getAgmarknetData = ai.defineTool({
   name: 'getAgmarknetData',
   description: 'Fetches mandi price data from the Agmarknet API for a specific crop and location.',
@@ -37,8 +38,6 @@ const getAgmarknetData = ai.defineTool({
   }),
   outputSchema: z.string(), // Returns a JSON string of mandi data.
 }, async (input) => {
-  // In a real application, this would call the Agmarknet API.
-  // For this demo, we are returning realistic but fictional data.
   const { crop, location } = input;
   const basePrice = Math.floor(Math.random() * (5000 - 1500 + 1)) + 1500; // Random base price between 1500-5000
 
@@ -75,29 +74,25 @@ const getAgmarknetData = ai.defineTool({
 const summarizeMandiPriceDataPrompt = ai.definePrompt({
   name: 'summarizeMandiPriceDataPrompt',
   model: 'googleai/gemini-1.5-flash',
-  tools: [getAgmarknetData],
   input: {schema: z.object({
-    crop: z.string().describe('The crop to get mandi price insights for.'),
-    location: z.string().describe('The location (e.g., city, district) to get mandi price insights for.'),
+      mandiData: z.string().describe('The JSON data received from the Agmarknet API tool.'),
   })},
   output: {schema: GetMandiPriceInsightsOutputSchema},
-  prompt: `You are an expert agricultural analyst. Use the getAgmarknetData tool to find the price for {{{crop}}} in {{{location}}}.
-
-Analyze the data and provide a concise, easy-to-understand summary for a farmer.
+  prompt: `You are an expert agricultural analyst. Analyze the provided JSON data and provide a concise, easy-to-understand summary for a farmer.
 
 Your summary must be a single paragraph and include:
-- The approximate average price.
+- The approximate average price for the crop.
 - The general price range (minimum and maximum).
 - A simple recommendation on where they might get the best price.
 
 IMPORTANT:
 - ALWAYS use the Indian Rupee symbol (₹).
 - ALWAYS state that the prices are per quintal.
+- Your entire response must be enclosed within the 'summary' field of the JSON output.
 
-Example Output:
-"The current market price for Wheat in Delhi is approximately ₹2500 per quintal, with prices ranging from ₹2300 to ₹2800 across different markets. You may find the best price at the Delhi Main Market."`,
+Here is the data:
+{{{mandiData}}}`,
 });
-
 
 const getMandiPriceInsightsFlow = ai.defineFlow(
   {
@@ -106,10 +101,17 @@ const getMandiPriceInsightsFlow = ai.defineFlow(
     outputSchema: GetMandiPriceInsightsOutputSchema,
   },
   async ({ crop, location, targetLanguage }) => {
-    const {output} = await summarizeMandiPriceDataPrompt({ crop, location });
+    // Step 1: Call the tool directly to get the data.
+    const mandiData = await getAgmarknetData({ crop, location });
+
+    // Step 2: Pass the data to the summarization prompt.
+    const {output} = await summarizeMandiPriceDataPrompt({ mandiData });
+
     if (!output) {
       throw new Error('Failed to get insights from the model.');
     }
+
+    // Step 3: Translate the final summary.
     const translatedSummary = await translateText({ text: output.summary, targetLanguage });
     return { summary: translatedSummary.translatedText };
   }
