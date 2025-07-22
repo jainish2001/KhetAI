@@ -77,7 +77,7 @@ export default function SettingsPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p>Future settings will be available here, such as farm type, profile information, and notification preferences.</p>
+            <p>{t('settings_placeholder')}</p>
           </CardContent>
         </Card>
 

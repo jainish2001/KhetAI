@@ -61,6 +61,8 @@ const translations = {
     'query_type_scheme': 'Govt. Scheme',
     'query_on': 'Query on',
     'clear_history_button': 'Clear History',
+    'settings_placeholder': 'Future settings will be available here, such as farm type, profile information, and notification preferences.',
+
 
     // Login Page
     'login_title': 'Login to KhetAI',
@@ -128,6 +130,7 @@ const translations = {
     'query_type_scheme': 'सरकारी योजना',
     'query_on': 'क्वेरी पर',
     'clear_history_button': 'इतिहास साफ़ करें',
+    'settings_placeholder': 'भविष्य की सेटिंग्स यहां उपलब्ध होंगी, जैसे खेत का प्रकार, प्रोफ़ाइल जानकारी और अधिसूचना प्राथमिकताएं।',
     
     'login_title': 'खेतAI में लॉग इन करें',
     'login_desc': 'एक बार का पासवर्ड (OTP) प्राप्त करने के लिए अपना फ़ोन नंबर दर्ज करें।',
@@ -194,6 +197,7 @@ const translations = {
     'query_type_scheme': 'ಸರ್ಕಾರಿ ಯೋಜನೆ',
     'query_on': 'ದಿನಾಂಕ:',
     'clear_history_button': 'ಇತಿಹಾಸ ಅಳಿಸಿ',
+    'settings_placeholder': 'ಭವಿಷ್ಯದ ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಇಲ್ಲಿ ಲಭ್ಯವಿರುತ್ತವೆ, ಉದಾಹರಣೆಗೆ ಫಾರ್ಮ್ ಪ್ರಕಾರ, ಪ್ರೊಫೈಲ್ ಮಾಹಿತಿ ಮತ್ತು ಅಧಿಸೂಚನೆ ಆದ್ಯತೆಗಳು.',
 
     'login_title': 'ಖೇತ್AI ಗೆ ಲಾಗಿನ್ ಆಗಿ',
     'login_desc': 'ಒಮ್ಮೆ ಬಳಸಬಹುದಾದ ಪಾಸ್‌ವರ್ಡ್ (OTP) ಪಡೆಯಲು ನಿಮ್ಮ ಫೋನ್ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ.',
@@ -266,6 +270,7 @@ const translations = {
     'query_type_scheme': 'सरकारी योजना',
     'query_on': 'प्रश्न विचारले',
     'clear_history_button': 'इतिहास साफ करा',
+    'settings_placeholder': 'भविष्यातील सेटिंग्ज येथे उपलब्ध असतील, जसे की शेतीचा प्रकार, प्रोफाइल माहिती आणि सूचना प्राधान्ये.',
 
     // Login Page
     'login_title': 'KhetAI मध्ये लॉगिन करा',
@@ -339,6 +344,7 @@ const translations = {
     'query_type_scheme': 'அரசுத் திட்டம்',
     'query_on': 'வினா தேதி',
     'clear_history_button': 'வரலாறை அழிக்கவும்',
+    'settings_placeholder': 'பண்ணை வகை, சுயவிவரத் தகவல் மற்றும் அறிவிப்பு விருப்பத்தேர்வுகள் போன்ற எதிர்கால அமைப்புகள் இங்கே கிடைக்கும்.',
 
     // Login Page
     'login_title': 'KhetAI-ல் உள்நுழைக',
@@ -412,6 +418,7 @@ const translations = {
     'query_type_scheme': 'സർക്കാർ പദ്ധതി',
     'query_on': 'ചോദിച്ച തിയതി',
     'clear_history_button': 'ചരിത്രം മായ്ക്കുക',
+    'settings_placeholder': 'ഫാം തരം, പ്രൊഫൈൽ വിവരങ്ങൾ, അറിയിപ്പ് മുൻഗണനകൾ എന്നിവ പോലുള്ള ഭാവി ക്രമീകരണങ്ങൾ ഇവിടെ ലഭ്യമാകും.',
 
     // Login Page
     'login_title': 'ഖേതAI ലേക്ക് ലോഗിൻ ചെയ്യുക',
@@ -485,6 +492,7 @@ const translations = {
     'query_type_scheme': 'ప్రభుత్వ పథకం',
     'query_on': 'ప్రశ్న తేదీ',
     'clear_history_button': 'చరిత్రను క్లియర్ చేయండి',
+    'settings_placeholder': 'భవిష్యత్ సెట్టింగ్‌లు ఇక్కడ అందుబాటులో ఉంటాయి, ఉదాహరణకు వ్యవసాయ రకం, ప్రొఫైల్ సమాచారం మరియు నోటిఫికేషన్ ప్రాధాన్యతలు.',
   
     // Login Page
     'login_title': 'KhetAI లో లాగిన్ అవ్వండి',
