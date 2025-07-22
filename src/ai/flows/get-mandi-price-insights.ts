@@ -35,11 +35,40 @@ const getAgmarknetData = ai.defineTool({
     crop: z.string().describe('The crop to get mandi price data for.'),
     location: z.string().describe('The location (e.g., city, district) to get mandi price data for.'),
   }),
-  outputSchema: z.string(), // Assuming the API returns a stringified JSON or a string
+  outputSchema: z.string(), // Returns a JSON string of mandi data.
 }, async (input) => {
-  // TODO: Implement the actual API call to Agmarknet.  Replace the below placeholder.
-  // This is just a placeholder to demonstrate the tool.
-  return `Mandi price data for ${input.crop} in ${input.location} is currently unavailable via API.`;
+  // In a real application, this would call the Agmarknet API.
+  // For this demo, we are returning realistic but fictional data.
+  const { crop, location } = input;
+  const basePrice = Math.floor(Math.random() * (5000 - 1500 + 1)) + 1500; // Random base price between 1500-5000
+
+  const mockData = {
+    crop: crop,
+    location: location,
+    date: new Date().toISOString().split('T')[0],
+    markets: [
+      {
+        name: `${location} Main Market`,
+        min_price: basePrice,
+        max_price: basePrice + Math.floor(Math.random() * 500),
+        modal_price: basePrice + Math.floor(Math.random() * 250),
+      },
+      {
+        name: `${location} North Market`,
+        min_price: basePrice - Math.floor(Math.random() * 200),
+        max_price: basePrice + Math.floor(Math.random() * 300),
+        modal_price: basePrice - Math.floor(Math.random() * 100),
+      },
+      {
+        name: `Nearby Village Market`,
+        min_price: basePrice - Math.floor(Math.random() * 300),
+        max_price: basePrice + Math.floor(Math.random() * 100),
+        modal_price: basePrice - Math.floor(Math.random() * 150),
+      }
+    ]
+  };
+
+  return JSON.stringify(mockData);
 });
 
 const summarizeMandiPriceDataPrompt = ai.definePrompt({
@@ -56,7 +85,9 @@ const summarizeMandiPriceDataPrompt = ai.definePrompt({
 Crop: {{{crop}}}
 Location: {{{location}}}
 
-Summarize the recent mandi price trends for the farmer, so they can make informed decisions about when and where to sell their produce.`,
+Summarize the recent mandi price trends for the farmer in a concise, easy-to-understand way.
+Mention the different prices in the various markets provided and give a simple recommendation on where they might get the best price.
+Present the answer in a single paragraph.`,
 });
 
 const getMandiPriceInsightsFlow = ai.defineFlow(
