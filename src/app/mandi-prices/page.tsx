@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -12,6 +12,7 @@ import PageHeader from '@/components/page-header';
 import VoiceInputButton from '@/components/voice-input-button';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/contexts/language-context';
+import { useLocation } from '@/contexts/location-context';
 import { useHistory } from '@/contexts/history-context';
 import { Loader2, HandCoins } from 'lucide-react';
 import { getMandiPriceInsights } from '@/ai/flows/get-mandi-price-insights';
@@ -25,6 +26,7 @@ type FormData = z.infer<typeof FormSchema>;
 
 export default function MandiPricesPage() {
   const { t, language } = useLanguage();
+  const { location } = useLocation();
   const { toast } = useToast();
   const { addHistoryItem } = useHistory();
   const [loading, setLoading] = useState(false);
@@ -34,6 +36,13 @@ export default function MandiPricesPage() {
     resolver: zodResolver(FormSchema),
     defaultValues: { crop: '', location: '' },
   });
+  
+  useEffect(() => {
+    if (location) {
+      form.setValue('location', location.city);
+    }
+  }, [location, form]);
+
 
   const onSubmit = async (data: FormData) => {
     setLoading(true);
@@ -88,18 +97,14 @@ export default function MandiPricesPage() {
                       <FormLabel className="text-lg">{t('location_label')}</FormLabel>
                       <FormControl>
                         <div className="flex items-center gap-2">
-                           <Input placeholder={t('location_placeholder')} {...field} className="text-base p-6 flex-1" />
-                           <VoiceInputButton
-                            disabled={loading}
-                            onTranscript={(text) => form.setValue('location', text)}
-                          />
+                           <Input placeholder={t('location_placeholder')} {...field} className="text-base p-6 flex-1" disabled />
                         </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <Button type="submit" disabled={loading} className="w-full text-lg p-6">
+                <Button type="submit" disabled={loading || !location} className="w-full text-lg p-6">
                   {loading ? <Loader2 className="mr-2 h-6 w-6 animate-spin" /> : <HandCoins className="mr-2 h-6 w-6" />}
                   {t('get_insights_button')}
                 </Button>

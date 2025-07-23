@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/sidebar';
 import { Logo } from '@/components/logo';
 import LanguageSwitcher from './language-switcher';
+import LocationSwitcher from './location-switcher';
 import { useLanguage } from '@/contexts/language-context';
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
@@ -79,6 +80,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             <Logo />
           </div>
           <div className="ml-auto flex items-center gap-2">
+            <LocationSwitcher />
             <LanguageSwitcher />
           </div>
         </header>

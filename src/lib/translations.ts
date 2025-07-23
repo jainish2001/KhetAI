@@ -73,6 +73,20 @@ const translations = {
     'otp_label': 'Enter OTP',
     'otp_placeholder': '123456',
     'verify_otp_button': 'Verify OTP',
+
+    // Location
+    'location_title': 'Set Your Location',
+    'location_subtitle': 'Get market prices relevant to your area.',
+    'use_current_location': 'Use My Current Location',
+    'or_enter_manually': 'Or enter your city manually',
+    'city_label': 'City',
+    'city_placeholder': 'e.g. Pune',
+    'save_location': 'Save Location',
+    'location_set': 'Location set',
+    'location_not_set': 'Location not set',
+    'location_error': 'Could not get location. Please grant permission and try again.',
+    'location_fetching': 'Fetching location...',
+
   },
   hi: { // Hindi
     'home': 'होम',
@@ -140,6 +154,18 @@ const translations = {
     'otp_label': 'OTP दर्ज करें',
     'otp_placeholder': '123456',
     'verify_otp_button': 'OTP सत्यापित करें',
+
+    'location_title': 'अपना स्थान निर्धारित करें',
+    'location_subtitle': 'अपने क्षेत्र से संबंधित बाजार मूल्य प्राप्त करें।',
+    'use_current_location': 'मेरा वर्तमान स्थान उपयोग करें',
+    'or_enter_manually': 'या अपना शहर मैन्युअल रूप से दर्ज करें',
+    'city_label': 'शहर',
+    'city_placeholder': 'जैसे पुणे',
+    'save_location': 'स्थान सहेजें',
+    'location_set': 'स्थान निर्धारित है',
+    'location_not_set': 'स्थान निर्धारित नहीं है',
+    'location_error': 'स्थान प्राप्त नहीं हो सका। कृपया अनुमति दें और पुनः प्रयास करें।',
+    'location_fetching': 'स्थान प्राप्त हो रहा है...',
   },
   kn: { // Kannada
     'home': 'ಮನೆ',
@@ -207,6 +233,18 @@ const translations = {
     'otp_label': 'OTP ನಮೂದಿಸಿ',
     'otp_placeholder': '123456',
     'verify_otp_button': 'OTP ಪರಿಶೀಲಿಸಿ',
+    
+    'location_title': 'ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಹೊಂದಿಸಿ',
+    'location_subtitle': 'ನಿಮ್ಮ ಪ್ರದೇಶಕ್ಕೆ ಸಂಬಂಧಿಸಿದ ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳನ್ನು ಪಡೆಯಿರಿ.',
+    'use_current_location': 'ನನ್ನ ಪ್ರಸ್ತುತ ಸ್ಥಳವನ್ನು ಬಳಸಿ',
+    'or_enter_manually': 'ಅಥವಾ ನಿಮ್ಮ ನಗರವನ್ನು ಹಸ್ತಚಾಲಿತವಾಗಿ ನಮೂದಿಸಿ',
+    'city_label': 'ನಗರ',
+    'city_placeholder': 'ಉದಾ. ಬೆಂಗಳೂರು',
+    'save_location': 'ಸ್ಥಳವನ್ನು ಉಳಿಸಿ',
+    'location_set': 'ಸ್ಥಳವನ್ನು ಹೊಂದಿಸಲಾಗಿದೆ',
+    'location_not_set': 'ಸ್ಥಳವನ್ನು ಹೊಂದಿಸಿಲ್ಲ',
+    'location_error': 'ಸ್ಥಳವನ್ನು ಪಡೆಯಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಅನುಮತಿ ನೀಡಿ ಮತ್ತು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.',
+    'location_fetching': 'ಸ್ಥಳವನ್ನು ತರಲಾಗುತ್ತಿದೆ...',
   },
   mr: { // Marathi
     // App Shell
@@ -281,6 +319,19 @@ const translations = {
     'otp_label': 'OTP टाका',
     'otp_placeholder': '123456',
     'verify_otp_button': 'OTP सत्यापित करा',
+
+    // Location
+    'location_title': 'तुमचे स्थान सेट करा',
+    'location_subtitle': 'तुमच्या क्षेत्राशी संबंधित बाजारभाव मिळवा.',
+    'use_current_location': 'माझे वर्तमान स्थान वापरा',
+    'or_enter_manually': 'किंवा तुमचे शहर व्यक्तिचलितपणे प्रविष्ट करा',
+    'city_label': 'शहर',
+    'city_placeholder': 'उदा. पुणे',
+    'save_location': 'स्थान जतन करा',
+    'location_set': 'स्थान सेट केले आहे',
+    'location_not_set': 'स्थान सेट केलेले नाही',
+    'location_error': 'स्थान मिळू शकले नाही. कृपया परवानगी द्या आणि पुन्हा प्रयत्न करा.',
+    'location_fetching': 'स्थान मिळवत आहे...',
   },
   ta: { // Tamil
     // App Shell
@@ -355,6 +406,19 @@ const translations = {
     'otp_label': 'OTP உள்ளிடவும்',
     'otp_placeholder': '123456',
     'verify_otp_button': 'OTP சரிபார்க்கவும்',
+
+    // Location
+    'location_title': 'உங்கள் இருப்பிடத்தை அமைக்கவும்',
+    'location_subtitle': 'உங்கள் பகுதிக்குரிய சந்தை விலைகளைப் பெறுங்கள்.',
+    'use_current_location': 'எனது தற்போதைய இருப்பிடத்தைப் பயன்படுத்து',
+    'or_enter_manually': 'அல்லது உங்கள் நகரத்தை கைமுறையாக உள்ளிடவும்',
+    'city_label': 'நகரம்',
+    'city_placeholder': 'எ.கா. சென்னை',
+    'save_location': 'இருப்பிடத்தைச் சேமி',
+    'location_set': 'இருப்பிடம் அமைக்கப்பட்டது',
+    'location_not_set': 'இருப்பிடம் அமைக்கப்படவில்லை',
+    'location_error': 'இருப்பிடத்தைப் பெற முடியவில்லை. தயவுசெய்து அனுமதி அளித்து மீண்டும் முயற்சிக்கவும்.',
+    'location_fetching': 'இருப்பிடத்தைப் பெறுகிறது...',
   },
   ml: { // Malayalam
     // App Shell
@@ -429,6 +493,19 @@ const translations = {
     'otp_label': 'OTP നൽകുക',
     'otp_placeholder': '123456',
     'verify_otp_button': 'OTP പരിശോധിക്കുക',
+    
+    // Location
+    'location_title': 'നിങ്ങളുടെ സ്ഥലം സജ്ജീകരിക്കുക',
+    'location_subtitle': 'നിങ്ങളുടെ പ്രദേശവുമായി ബന്ധപ്പെട്ട മാർക്കറ്റ് വിലകൾ നേടുക.',
+    'use_current_location': 'എൻ്റെ ഇപ്പോഴത്തെ സ്ഥലം ഉപയോഗിക്കുക',
+    'or_enter_manually': 'അല്ലെങ്കിൽ നിങ്ങളുടെ നഗരം സ്വമേധയാ നൽകുക',
+    'city_label': 'നഗരം',
+    'city_placeholder': 'ഉദാ. കൊച്ചി',
+    'save_location': 'സ്ഥലം സംരക്ഷിക്കുക',
+    'location_set': 'സ്ഥലം സജ്ജമാക്കി',
+    'location_not_set': 'സ്ഥലം സജ്ജമാക്കിയിട്ടില്ല',
+    'location_error': 'സ്ഥലം ലഭിച്ചില്ല. ദയവായി അനുമതി നൽകി വീണ്ടും ശ്രമിക്കുക.',
+    'location_fetching': 'സ്ഥലം ലഭ്യമാക്കുന്നു...',
   },
   te: { // Telugu
     // App Shell
@@ -503,6 +580,19 @@ const translations = {
     'otp_label': 'OTP నమోదు చేయండి',
     'otp_placeholder': '123456',
     'verify_otp_button': 'OTP ధృవీకరించండి',
+    
+    // Location
+    'location_title': 'మీ స్థానాన్ని సెట్ చేయండి',
+    'location_subtitle': 'మీ ప్రాంతానికి సంబంధించిన మార్కెట్ ధరలను పొందండి.',
+    'use_current_location': 'నా ప్రస్తుత స్థానాన్ని ఉపయోగించు',
+    'or_enter_manually': 'లేదా మీ నగరాన్ని మాన్యువల్‌గా నమోదు చేయండి',
+    'city_label': 'నగరం',
+    'city_placeholder': 'ఉదా. హైదరాబాద్',
+    'save_location': 'స్థానాన్ని సేవ్ చేయండి',
+    'location_set': 'స్థానం సెట్ చేయబడింది',
+    'location_not_set': 'స్థానం సెట్ చేయబడలేదు',
+    'location_error': 'స్థానాన్ని పొందలేకపోయాము. దయచేసి అనుమతిని మంజూరు చేసి మళ్లీ ప్రయత్నించండి.',
+    'location_fetching': 'స్థానం పొందుతోంది...',
   }  
 };
 
