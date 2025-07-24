@@ -1,6 +1,7 @@
+
 'use client';
 import { useState, useRef, useEffect } from 'react';
-import { Send, Loader2, Image as ImageIcon, Mic, Volume2 } from 'lucide-react';
+import { Send, Loader2, Image as ImageIcon, X, Mic } from 'lucide-react';
 import Image from 'next/image';
 import PageHeader from '@/components/page-header';
 import { useLanguage } from '@/contexts/language-context';
@@ -48,7 +49,6 @@ export default function Home() {
   }, [messages]);
   
   useEffect(() => {
-    // Stop any currently playing audio when a new message comes in or loading starts
     if (currentAudio) {
       currentAudio.pause();
       currentAudio.currentTime = 0;
@@ -69,7 +69,7 @@ export default function Home() {
       reader.readAsDataURL(file);
     }
   };
-  
+
   const handlePlayAudio = (audioDataUri: string, messageId: string) => {
     if (currentAudio && playingMessageId === messageId) {
       currentAudio.pause();
@@ -160,16 +160,16 @@ export default function Home() {
         title={t('welcome_title')}
         subtitle={t('welcome_subtitle_agent')}
       />
-      <main className="flex-1 flex flex-col p-4 md:p-6 overflow-hidden">
-        <ScrollArea className="flex-1 mb-4" ref={scrollAreaRef}>
-            <div className="space-y-6 pr-4">
+      <main className="flex-1 flex flex-col overflow-hidden">
+        <ScrollArea className="flex-1" ref={scrollAreaRef}>
+            <div className="space-y-6 p-4 md:p-6">
                 {messages.map((msg) => (
                     <ChatMessage key={msg.id} {...msg} isPlaying={playingMessageId === msg.id} />
                 ))}
                 {loading && <ChatMessage id="loading" role="assistant" content={<Loader2 className="h-6 w-6 animate-spin" />} />}
             </div>
         </ScrollArea>
-        <div className="shrink-0 px-4 py-3 bg-background border-t">
+        <div className="shrink-0 p-4 md:p-6 bg-background border-t">
             {imagePreview && (
                  <div className="relative w-24 h-24 mb-2 rounded-md overflow-hidden border">
                     <Image src={imagePreview} alt="Image preview" layout="fill" objectFit="cover" />
@@ -179,24 +179,24 @@ export default function Home() {
                         className="absolute top-1 right-1 h-6 w-6 z-10"
                         onClick={() => { setImagePreview(null); setImageDataUri(null); if(fileInputRef.current) fileInputRef.current.value = ''; }}
                     >
-                        <ImageIcon className="h-4 w-4" />
+                        <X className="h-4 w-4" />
                     </Button>
                 </div>
             )}
           <form onSubmit={handleSendMessage} className="relative flex items-center gap-2">
-            <Input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder={t('agent_placeholder')}
-              className={cn("flex-1 text-base p-4 pr-32", imagePreview ? 'pl-4' : 'pl-12')}
-              disabled={loading}
-            />
-            <div className="absolute left-3 flex items-center">
+             <div className="absolute left-3 flex items-center">
                  <Button type="button" size="icon" variant="ghost" onClick={() => fileInputRef.current?.click()} disabled={loading}>
                     <ImageIcon className="h-6 w-6" />
                 </Button>
                 <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" accept="image/*" />
             </div>
+            <Input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder={t('agent_placeholder')}
+              className="flex-1 text-base p-4 pl-14 pr-24"
+              disabled={loading}
+            />
              <div className="absolute right-14 flex items-center">
                 <VoiceInputButton
                 disabled={loading}
