@@ -86,7 +86,12 @@ const khetAIAgentFlow = ai.defineFlow(
         outputSchema: KhetAIAgentOutputSchema,
     },
     async (input) => {
-        const {output} = await prompt(input);
+        const {output} = await prompt(input.query, {
+          context: {
+            location: input.location,
+            targetLanguage: input.targetLanguage,
+          },
+        });
         const responseText = output?.content?.parts[0]?.text || "I'm sorry, I couldn't find an answer to your question. Please try rephrasing it.";
 
         // Final translation check
