@@ -22,7 +22,7 @@ const DiagnoseCropDiseaseInputSchema = z.object({
 });
 export type DiagnoseCropDiseaseInput = z.infer<typeof DiagnoseCropDiseaseInputSchema>;
 
-const DiagnoseCropDiseaseOutputSchema = z.object({
+export const DiagnoseCropDiseaseOutputSchema = z.object({
   diagnosis: z.string().describe('The diagnosis of the crop disease.'),
 });
 export type DiagnoseCropDiseaseOutput = z.infer<typeof DiagnoseCropDiseaseOutputSchema>;

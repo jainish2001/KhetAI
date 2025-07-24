@@ -13,6 +13,14 @@ const translations = {
     // Home Page
     'welcome_title': 'Welcome to KhetAI',
     'welcome_subtitle': 'Your personal farming assistant, powered by AI.',
+    'welcome_subtitle_agent': 'Ask me anything about your farm.',
+    'welcome_message_agent': 'Hello! I am KhetAI, your personal farming assistant. How can I help you today? You can ask me about crop diseases, market prices, or government schemes.',
+    'agent_placeholder': 'Ask a question...',
+    'agent_error': 'An error occurred',
+    'agent_error_message': 'I am sorry, something went wrong. Please try again.',
+    'set_location_for_agent': 'Please set your location in the top right corner to ask about local information like mandi prices.',
+
+
     'crop_health_diagnosis_title': 'Crop Health Diagnosis',
     'crop_health_diagnosis_desc': 'Upload a photo of your crop to get an instant health diagnosis and recommendations.',
     'mandi_price_insights_title': 'Mandi Price Insights',
@@ -100,6 +108,13 @@ const translations = {
 
     'welcome_title': 'खेतAI में आपका स्वागत है',
     'welcome_subtitle': 'आपका व्यक्तिगत खेती सहायक, AI द्वारा संचालित।',
+    'welcome_subtitle_agent': 'मुझसे अपनी खेती के बारे में कुछ भी पूछें।',
+    'welcome_message_agent': 'नमस्ते! मैं खेतAI हूँ, आपका व्यक्तिगत खेती सहायक। आज मैं आपकी कैसे मदद कर सकता हूँ? आप मुझसे फसल रोगों, बाजार मूल्य, या सरकारी योजनाओं के बारे में पूछ सकते हैं।',
+    'agent_placeholder': 'एक सवाल पूछें...',
+    'agent_error': 'एक त्रुटि हुई',
+    'agent_error_message': 'मुझे खेद है, कुछ गलत हो गया। कृपया पुन: प्रयास करें।',
+    'set_location_for_agent': 'मंडी मूल्य जैसी स्थानीय जानकारी पूछने के लिए कृपया ऊपरी दाएं कोने में अपना स्थान निर्धारित करें।',
+
     'crop_health_diagnosis_title': 'फसल स्वास्थ्य निदान',
     'crop_health_diagnosis_desc': 'तत्काल स्वास्थ्य निदान और सिफारिशें प्राप्त करने के लिए अपनी फसल की एक तस्वीर अपलोड करें।',
     'mandi_price_insights_title': 'मंडी मूल्य जानकारी',
@@ -179,6 +194,13 @@ const translations = {
 
     'welcome_title': 'ಖೇತ್AI ಗೆ ಸುಸ್ವಾಗತ',
     'welcome_subtitle': 'ನಿಮ್ಮ ವೈಯಕ್ತಿಕ ಕೃಷಿ ಸಹಾಯಕ, AI ನಿಂದ ಚಾಲಿತವಾಗಿದೆ.',
+    'welcome_subtitle_agent': 'ನಿಮ್ಮ ખેતી ಬಗ್ಗೆ ಏನು ಬೇಕಾದರೂ ಕೇಳಿ.',
+    'welcome_message_agent': 'ನಮಸ್ಕಾರ! ನಾನು ಖೇತ್AI, ನಿಮ್ಮ ವೈಯಕ್ತಿಕ ಕೃಷಿ ಸಹಾಯಕ. ಇಂದು ನಾನು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಲಿ? ನೀವು ಬೆಳೆ ರೋಗಗಳು, ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳು, ಅಥವಾ ಸರ್ಕಾರಿ ಯೋಜನೆಗಳ ಬಗ್ಗೆ ಕೇಳಬಹುದು.',
+    'agent_placeholder': 'ಪ್ರಶ್ನೆ ಕೇಳಿ...',
+    'agent_error': 'ಒಂದು ದೋಷ ಸಂಭವಿಸಿದೆ',
+    'agent_error_message': 'ಕ್ಷಮಿಸಿ, ಏನೋ ತಪ್ಪಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.',
+    'set_location_for_agent': 'ಮಂಡಿ ಬೆಲೆಗಳಂತಹ ಸ್ಥಳೀಯ ಮಾಹಿತಿಗಾಗಿ ದಯವಿಟ್ಟು ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಮೇಲಿನ ಬಲ ಮೂಲೆಯಲ್ಲಿ ಹೊಂದಿಸಿ.',
+
     'crop_health_diagnosis_title': 'ಬೆಳೆ ಆರೋಗ್ಯ ನಿರ್ಧಾರ',
     'crop_health_diagnosis_desc': 'ತಕ್ಷಣದ ಆರೋಗ್ಯ ನಿರ್ಧಾರ ಮತ್ತು ಶಿಫಾರಸುಗಳಿಗಾಗಿ ನಿಮ್ಮ ಬೆಳೆ ಫೋಟೋ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ.',
     'mandi_price_insights_title': 'ಮಂಡಿ ಬೆಲೆ ಮಾಹಿತಿಗಳು',
@@ -260,6 +282,13 @@ const translations = {
     // Home Page
     'welcome_title': 'KhetAI मध्ये आपले स्वागत आहे',
     'welcome_subtitle': 'तुमचा वैयक्तिक शेती सहायक, AI द्वारे समर्थित.',
+    'welcome_subtitle_agent': 'तुमच्या शेताबद्दल काहीही विचारा.',
+    'welcome_message_agent': 'नमस्कार! मी KhetAI, तुमचा वैयक्तिक शेती सहायक आहे. आज मी तुमची काय मदत करू शकतो? तुम्ही मला पिकांचे रोग, बाजारभाव किंवा सरकारी योजनांबद्दल विचारू शकता.',
+    'agent_placeholder': 'प्रश्न विचारा...',
+    'agent_error': 'एक त्रुटी आली',
+    'agent_error_message': 'क्षमस्व, काहीतरी चूक झाली. कृपया पुन्हा प्रयत्न करा.',
+    'set_location_for_agent': 'मंडईचे दर यासारख्या स्थानिक माहितीसाठी कृपया वरच्या उजव्या कोपर्यात आपले स्थान सेट करा.',
+
     'crop_health_diagnosis_title': 'पिकाचे आरोग्य निदान',
     'crop_health_diagnosis_desc': 'तत्काळ निदान व शिफारसी मिळवण्यासाठी पिकाचा फोटो अपलोड करा.',
     'mandi_price_insights_title': 'मंडई दर माहिती',
@@ -347,6 +376,13 @@ const translations = {
     // Home Page
     'welcome_title': 'KhetAI-க்கு வரவேற்கிறோம்',
     'welcome_subtitle': 'AI-இனால் இயக்கப்படும் உங்கள் தனிப்பட்ட விவசாய உதவியாளர்.',
+    'welcome_subtitle_agent': 'உங்கள் பண்ணையைப் பற்றி எதுவும் கேளுங்கள்.',
+    'welcome_message_agent': 'வணக்கம்! நான் KhetAI, உங்கள் தனிப்பட்ட விவசாய உதவியாளர். இன்று உங்களுக்கு நான் எப்படி உதவ முடியும்? நீங்கள் பயிர் நோய்கள், சந்தை விலைகள், அல்லது அரசு திட்டங்கள் பற்றி கேட்கலாம்.',
+    'agent_placeholder': 'ஒரு கேள்வியைக் கேளுங்கள்...',
+    'agent_error': 'ஒரு பிழை ஏற்பட்டது',
+    'agent_error_message': 'மன்னிக்கவும், ஏதோ தவறு நடந்துவிட்டது. தயவுசெய்து மீண்டும் முயற்சிக்கவும்.',
+    'set_location_for_agent': 'மண்டி விலைகள் போன்ற உள்ளூர் தகவல்களைப் பற்றி கேட்க, மேல் வலது மூலையில் உங்கள் இருப்பிடத்தை அமைக்கவும்.',
+
     'crop_health_diagnosis_title': 'பயிர் ஆரோக்கிய மதிப்பீடு',
     'crop_health_diagnosis_desc': 'உடனடி ஆரோக்கிய மதிப்பீடு மற்றும் பரிந்துரைகளைப் பெற உங்கள் பயிர் புகைப்படத்தைப் பதிவேற்றுங்கள்.',
     'mandi_price_insights_title': 'மண்டி விலை தகவல்கள்',
@@ -434,6 +470,13 @@ const translations = {
     // Home Page
     'welcome_title': 'ഖേതAI ലേക്ക് സ്വാഗതം',
     'welcome_subtitle': 'AI പ്രവർത്തിപ്പിക്കുന്ന നിങ്ങളുടെ വ്യക്തിഗത കൃഷി സഹായകൻ.',
+    'welcome_subtitle_agent': 'നിങ്ങളുടെ കൃഷിയെക്കുറിച്ച് എന്തും ചോദിക്കൂ.',
+    'welcome_message_agent': 'നമസ്കാരം! ഞാൻ ഖേതAI, നിങ്ങളുടെ വ്യക്തിഗത കൃഷി സഹായകൻ. ഇന്ന് ഞാൻ നിങ്ങളെ എങ്ങനെ സഹായിക്കണം? നിങ്ങൾക്ക് വിള രോഗങ്ങൾ, വിപണി വിലകൾ, അല്ലെങ്കിൽ സർക്കാർ പദ്ധതികൾ എന്നിവയെക്കുറിച്ച് ചോദിക്കാം.',
+    'agent_placeholder': 'ഒരു ചോദ്യം ചോദിക്കൂ...',
+    'agent_error': 'ഒരു പിശക് സംഭവിച്ചു',
+    'agent_error_message': 'ക്ഷമിക്കണം, എന്തോ പിശകു സംഭവിച്ചു. ദയവായി വീണ്ടും ശ്രമിക്കുക.',
+    'set_location_for_agent': 'മണ്ടി വിലകൾ പോലുള്ള പ്രാദേശിക വിവരങ്ങൾക്കായി ദയവായി നിങ്ങളുടെ സ്ഥലം മുകളിൽ വലത് കോണിൽ സജ്ജീകരിക്കുക.',
+
     'crop_health_diagnosis_title': 'വിളാരോഗ്യ നിർണയം',
     'crop_health_diagnosis_desc': 'തൽക്ഷണ ആരോഗ്യനിർണയം ലഭിക്കാൻ നിങ്ങളുടെ വിളയുടെ ഫോട്ടോ അപ്‌ലോഡ് ചെയ്യുക.',
     'mandi_price_insights_title': 'മണ്ടി വില വിവരങ്ങൾ',
@@ -521,6 +564,13 @@ const translations = {
     // Home Page
     'welcome_title': 'KhetAI కు స్వాగతం',
     'welcome_subtitle': 'AI చేత నడపబడే మీ వ్యక్తిగత వ్యవసాయ సహాయకుడు.',
+    'welcome_subtitle_agent': 'మీ వ్యవసాయం గురించి ఏమైనా అడగండి.',
+    'welcome_message_agent': 'నమస్కారం! నేను KhetAI, మీ వ్యక్తిగత వ్యవసాయ సహాయకుడిని. ఈ రోజు నేను మీకు ఎలా సహాయపడగలను? మీరు పంట వ్యాధులు, మార్కెట్ ధరలు, లేదా ప్రభుత్వ పథకాల గురించి అడగవచ్చు.',
+    'agent_placeholder': 'ప్రశ్న అడగండి...',
+    'agent_error': 'ఒక దోషం సంభవించింది',
+    'agent_error_message': 'క్షమించండి, ఏదో తప్పు జరిగింది. దయచేసి మళ్లీ ప్రయత్నించండి.',
+    'set_location_for_agent': 'మండీ ధరల వంటి స్థానిక సమాచారం కోసం దయచేసి మీ స్థానాన్ని పై కుడి మూలలో సెట్ చేయండి.',
+  
     'crop_health_diagnosis_title': 'పంట ఆరోగ్య నిర్ధారణ',
     'crop_health_diagnosis_desc': 'తక్షణ ఆరోగ్య నిర్ధారణ కోసం మీ పంట ఫోటోను అప్‌లోడ్ చేయండి.',
     'mandi_price_insights_title': 'మండీ ధరలు సమాచారం',
