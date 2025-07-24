@@ -76,8 +76,6 @@ Your goal is to understand the user's question and use the available tools to pr
 - Always be polite and address the farmer directly.
 - The user's current location is: {{location}}. Use this for any location-based queries unless they specify a different one.
 - The user's preferred language is {{targetLanguage}}. You MUST respond in this language. The tools will automatically handle translation, but your own conversational text must also be translated.`,
-    input: { schema: KhetAIAgentInputSchema },
-    output: { schema: KhetAIAgentOutputSchema },
   });
 
 
@@ -88,8 +86,8 @@ const khetAIAgentFlow = ai.defineFlow(
         outputSchema: KhetAIAgentOutputSchema,
     },
     async (input) => {
-        const result = await prompt(input);
-        const responseText = result.output?.response || "I'm sorry, I couldn't find an answer to your question. Please try rephrasing it.";
+        const {output} = await prompt(input);
+        const responseText = output?.content?.parts[0]?.text || "I'm sorry, I couldn't find an answer to your question. Please try rephrasing it.";
 
         // Final translation check
         const translatedResponse = await translateText({ text: responseText, targetLanguage: input.targetLanguage });
