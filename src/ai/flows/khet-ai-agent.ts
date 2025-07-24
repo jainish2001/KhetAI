@@ -6,6 +6,7 @@
  */
 
 import {ai} from '@/ai/genkit';
+import {z} from 'genkit';
 import {diagnoseCropDisease} from './diagnose-crop-disease';
 import {getMandiPriceInsights} from './get-mandi-price-insights';
 import {summarizeGovernmentScheme} from './summarize-government-scheme';
