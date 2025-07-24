@@ -3,28 +3,24 @@
  * @fileOverview A conversational agent that can answer questions about farming.
  *
  * - khetAIAgent - A function that handles the conversational agent process.
- * - KhetAIAgentInput - The input type for the khetAIAgent function.
- * - KhetAIAgentOutput - The return type for the khetAIAgent function.
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
-import {diagnoseCropDisease, DiagnoseCropDiseaseInput, DiagnoseCropDiseaseOutput, DiagnoseCropDiseaseOutputSchema} from './diagnose-crop-disease';
-import {getMandiPriceInsights, GetMandiPriceInsightsInput, GetMandiPriceInsightsOutput} from './get-mandi-price-insights';
-import {summarizeGovernmentScheme, SummarizeGovernmentSchemeInput, SummarizeGovernmentSchemeOutput} from './summarize-government-scheme';
+import {diagnoseCropDisease} from './diagnose-crop-disease';
+import {getMandiPriceInsights} from './get-mandi-price-insights';
+import {summarizeGovernmentScheme} from './summarize-government-scheme';
 import { translateText } from './translate-text';
-
-const KhetAIAgentInputSchema = z.object({
-  query: z.string().describe("The user's query."),
-  location: z.string().describe("The user's location (e.g., city, district)."),
-  targetLanguage: z.string().describe('The language to translate the response to (e.g., "hi", "en").'),
-});
-export type KhetAIAgentInput = z.infer<typeof KhetAIAgentInputSchema>;
-
-const KhetAIAgentOutputSchema = z.object({
-  response: z.string().describe("The agent's response to the user's query."),
-});
-export type KhetAIAgentOutput = z.infer<typeof KhetAIAgentOutputSchema>;
+import {
+  DiagnoseCropDiseaseOutputSchema,
+  GetMandiPriceInsightsInputSchema,
+  GetMandiPriceInsightsOutputSchema,
+  SummarizeGovernmentSchemeInputSchema,
+  SummarizeGovernmentSchemeOutputSchema,
+  KhetAIAgentInput,
+  KhetAIAgentInputSchema,
+  KhetAIAgentOutput,
+  KhetAIAgentOutputSchema
+} from '@/ai/definitions';
 
 // Note: We can't pass image data to this agent directly yet.
 // For crop diagnosis, the user would be prompted to go to the specific page.
@@ -56,7 +52,7 @@ const govSchemeTool = ai.defineTool(
     name: 'summarizeGovernmentScheme',
     description: 'Summarizes a government scheme for a farmer.',
     inputSchema: SummarizeGovernmentSchemeInputSchema,
-    outputSchema: SummarizeGovernmentSchemeOutput,
+    outputSchema: SummarizeGovernmentSchemeOutputSchema,
   },
   async (input) => summarizeGovernmentScheme(input)
 );
@@ -82,7 +78,7 @@ Your goal is to understand the user's question and use the available tools to pr
     input: { schema: KhetAIAgentInputSchema },
     output: { schema: KhetAIAgentOutputSchema },
   });
-  
+
 
 const khetAIAgentFlow = ai.defineFlow(
     {
@@ -93,7 +89,7 @@ const khetAIAgentFlow = ai.defineFlow(
     async (input) => {
         const result = await prompt(input);
         const responseText = result.output?.response || "I'm sorry, I couldn't find an answer to your question. Please try rephrasing it.";
-        
+
         // Final translation check
         const translatedResponse = await translateText({ text: responseText, targetLanguage: input.targetLanguage });
 

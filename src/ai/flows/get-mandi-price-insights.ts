@@ -4,25 +4,17 @@
  * @fileOverview Fetches and summarizes mandi price insights using the Agmarknet API and Gemini.
  *
  * - getMandiPriceInsights - A function that fetches, analyzes, and summarizes mandi price data.
- * - GetMandiPriceInsightsInput - The input type for the getMandiPriceInsights function.
- * - GetMandiPriceInsightsOutput - The return type for the getMandiPriceInsights function.
  */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import { translateText } from './translate-text';
-
-const GetMandiPriceInsightsInputSchema = z.object({
-  crop: z.string().describe('The crop to get mandi price insights for.'),
-  location: z.string().describe('The location (e.g., city, district) to get mandi price insights for.'),
-  targetLanguage: z.string().describe('The language to translate the response to (e.g., "hi", "en").'),
-});
-export type GetMandiPriceInsightsInput = z.infer<typeof GetMandiPriceInsightsInputSchema>;
-
-const GetMandiPriceInsightsOutputSchema = z.object({
-  summary: z.string().describe('A summary of recent mandi price trends for the specified crop and location.'),
-});
-export type GetMandiPriceInsightsOutput = z.infer<typeof GetMandiPriceInsightsOutputSchema>;
+import {
+    GetMandiPriceInsightsInput,
+    GetMandiPriceInsightsInputSchema,
+    GetMandiPriceInsightsOutput,
+    GetMandiPriceInsightsOutputSchema,
+} from '@/ai/definitions';
 
 export async function getMandiPriceInsights(input: GetMandiPriceInsightsInput): Promise<GetMandiPriceInsightsOutput> {
   return getMandiPriceInsightsFlow(input);
