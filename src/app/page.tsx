@@ -55,6 +55,7 @@ export default function Home() {
       setCurrentAudio(null);
       setPlayingMessageId(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages, loading]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -107,7 +108,7 @@ export default function Home() {
     try {
       if (!location) {
         toast({ title: t('location_not_set'), description: t('set_location_for_agent'), variant: 'destructive' });
-        setMessages(prev => [...prev, { id: 'error-loc', role: 'assistant', content: t('set_location_for_agent')}]);
+        setMessages(prev => [...prev, { id: 'error-loc-' + Date.now(), role: 'assistant', content: t('set_location_for_agent')}]);
         setLoading(false);
         return;
       }
@@ -142,7 +143,7 @@ export default function Home() {
     } catch (error) {
       console.error('Agent error:', error);
       toast({ title: t('agent_error'), variant: 'destructive' });
-      const errorMessage: ChatMessageProps = { id: 'error-agent', role: 'assistant', content: t('agent_error_message') };
+      const errorMessage: ChatMessageProps = { id: 'error-agent-' + Date.now(), role: 'assistant', content: t('agent_error_message') };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setLoading(false);
