@@ -67,11 +67,13 @@ export const KhetAIAgentInputSchema = z.object({
   query: z.string().describe("The user's query."),
   location: z.string().describe("The user's location (e.g., city, district)."),
   targetLanguage: z.string().describe('The language to translate the response to (e.g., "hi", "en").'),
+  photoDataUri: z.string().optional().describe("An optional photo of a crop, as a data URI."),
 });
 export type KhetAIAgentInput = z.infer<typeof KhetAIAgentInputSchema>;
 
 export const KhetAIAgentOutputSchema = z.object({
   response: z.string().describe("The agent's response to the user's query."),
+  audio: z.string().optional().describe("The base64 encoded audio data URI for the response."),
 });
 export type KhetAIAgentOutput = z.infer<typeof KhetAIAgentOutputSchema>;
 
@@ -89,3 +91,17 @@ export const TranslateTextOutputSchema = z.object({
   translatedText: z.string().describe('The translated text.'),
 });
 export type TranslateTextOutput = z.infer<typeof TranslateTextOutputSchema>;
+
+
+// =============================================
+// Text to Speech
+// =============================================
+export const TextToSpeechInputSchema = z.object({
+  text: z.string().describe('The text to convert to speech.'),
+});
+export type TextToSpeechInput = z.infer<typeof TextToSpeechInputSchema>;
+
+export const TextToSpeechOutputSchema = z.object({
+  audio: z.string().describe("A data URI of the generated audio file. Expected format: 'data:audio/wav;base64,<encoded_data>'."),
+});
+export type TextToSpeechOutput = z.infer<typeof TextToSpeechOutputSchema>;

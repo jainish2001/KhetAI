@@ -10,7 +10,7 @@ import {z} from 'genkit';
 import {diagnoseCropDisease} from './diagnose-crop-disease';
 import {getMandiPriceInsights} from './get-mandi-price-insights';
 import {summarizeGovernmentScheme} from './summarize-government-scheme';
-import { translateText } from './translate-text';
+import { textToSpeech } from './text-to-speech';
 import {
   DiagnoseCropDiseaseOutputSchema,
   GetMandiPriceInsightsInputSchema,
@@ -22,20 +22,20 @@ import {
   KhetAIAgentOutput,
   KhetAIAgentOutputSchema
 } from '@/ai/definitions';
+import { translateText } from './translate-text';
 
-// Note: We can't pass image data to this agent directly yet.
-// For crop diagnosis, the user would be prompted to go to the specific page.
 const cropDiseaseTool = ai.defineTool(
   {
     name: 'diagnoseCropDisease',
-    description: 'Diagnoses crop diseases from a user query. This tool CANNOT analyze images. It can only answer text questions about crop diseases.',
+    description: 'Diagnoses crop diseases from a user query and an image. Use this tool if the user provides an image or asks a question about crop health.',
     inputSchema: z.object({
       query: z.string().describe("The user's question about the crop disease."),
+      photoDataUri: z.string().describe("A photo of the crop as a data URI."),
       targetLanguage: z.string().describe('The target language for the response.'),
     }),
     outputSchema: DiagnoseCropDiseaseOutputSchema,
   },
-  async (input) => diagnoseCropDisease({ photoDataUri: '', query: input.query, targetLanguage: input.targetLanguage })
+  async (input) => diagnoseCropDisease(input)
 );
 
 const mandiPriceTool = ai.defineTool(
@@ -69,9 +69,10 @@ const prompt = ai.definePrompt({
     tools: [mandiPriceTool, govSchemeTool, cropDiseaseTool],
     system: `You are KhetAI, a friendly and helpful AI assistant for Indian farmers.
 Your goal is to understand the user's question and use the available tools to provide a clear and concise answer in their selected language.
+- If the user provides an image, you MUST use the 'diagnoseCropDisease' tool.
 - For mandi prices, use the getMandiPriceInsights tool. The user's location is provided in the input.
 - For government schemes, use the summarizeGovernmentScheme tool.
-- For questions about crop diseases, use the diagnoseCropDisease tool. If the user wants to diagnose a disease from a photo, you must tell them to go to the "Crop Health" page to upload an image, as you cannot process images in this chat.
+- For questions about crop diseases (even without an image), use the diagnoseCropDisease tool.
 - If the user asks a general question or something you don't have a tool for, provide a helpful answer based on your general knowledge.
 - Always be polite and address the farmer directly.
 - The user's current location is: {{location}}. Use this for any location-based queries unless they specify a different one.
@@ -86,17 +87,26 @@ const khetAIAgentFlow = ai.defineFlow(
         outputSchema: KhetAIAgentOutputSchema,
     },
     async (input) => {
-        const {output} = await prompt(input.query, {
+        const promptPayload = input.photoDataUri 
+            ? [ {text: input.query}, {media: {url: input.photoDataUri}}] 
+            : input.query;
+
+        const {output} = await prompt(promptPayload, {
           context: {
             location: input.location,
             targetLanguage: input.targetLanguage,
+            photoDataUri: input.photoDataUri || '', // Pass it to context for the tool
+            query: input.query
           },
         });
         const responseText = output?.content?.parts[0]?.text || "I'm sorry, I couldn't find an answer to your question. Please try rephrasing it.";
 
-        // Final translation check
         const translatedResponse = await translateText({ text: responseText, targetLanguage: input.targetLanguage });
+        const speech = await textToSpeech({text: translatedResponse.translatedText});
 
-        return { response: translatedResponse.translatedText };
+        return { 
+          response: translatedResponse.translatedText,
+          audio: speech.audio,
+        };
     }
 );

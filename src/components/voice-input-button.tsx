@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Mic, MicOff } from 'lucide-react';
+import { Mic } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/contexts/language-context';
+import { cn } from '@/lib/utils';
 
 interface VoiceInputButtonProps {
   onTranscript: (transcript: string) => void;
@@ -47,7 +48,9 @@ export default function VoiceInputButton({ onTranscript, disabled }: VoiceInputB
     recognitionRef.current = recognition;
 
     return () => {
-      recognition.stop();
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
     };
   }, [onTranscript, toast, language]);
 
@@ -81,14 +84,14 @@ export default function VoiceInputButton({ onTranscript, disabled }: VoiceInputB
   return (
     <Button
       type="button"
-      variant={isListening ? 'destructive' : 'outline'}
+      variant="ghost"
       size="icon"
       onClick={handleToggleListening}
       disabled={disabled}
       aria-label={t('speak_query_button')}
-      className="p-2 h-auto"
+      className={cn(isListening && "text-destructive")}
     >
-      {isListening ? <MicOff className="h-6 w-6"/> : <Mic className="h-6 w-6"/>}
+      <Mic className="h-6 w-6"/>
     </Button>
   );
 }
