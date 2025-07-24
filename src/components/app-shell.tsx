@@ -73,8 +73,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           </SidebarMenu>
         </SidebarFooter>
       </Sidebar>
-      <SidebarInset>
-        <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:h-16 md:px-6">
+      <SidebarInset className="flex flex-col h-screen">
+        <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:h-16 md:px-6 shrink-0">
           <SidebarTrigger className="md:hidden" />
           <div className="hidden md:block">
             <Logo />
@@ -84,7 +84,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             <LanguageSwitcher />
           </div>
         </header>
-        {children}
+        <div className="flex-1 overflow-hidden">
+         {children}
+        </div>
       </SidebarInset>
     </SidebarProvider>
   );
