@@ -1,7 +1,7 @@
 
 'use client';
 import { useState, useRef, useEffect } from 'react';
-import { Send, Loader2, Image as ImageIcon, X, Mic } from 'lucide-react';
+import { Send, Loader2, Image as ImageIcon, X } from 'lucide-react';
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/language-context';
 import { useLocation } from '@/contexts/location-context';
@@ -24,7 +24,7 @@ export default function Home() {
   const [imageDataUri, setImageDataUri] = useState<string | null>(null);
   const [currentAudio, setCurrentAudio] = useState<HTMLAudioElement | null>(null);
   const [playingMessageId, setPlayingMessageId] = useState<string | null>(null);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const scrollViewportRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -38,9 +38,9 @@ export default function Home() {
   }, [t]);
 
   useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTo({
-        top: scrollAreaRef.current.scrollHeight,
+    if (scrollViewportRef.current) {
+        scrollViewportRef.current.scrollTo({
+        top: scrollViewportRef.current.scrollHeight,
         behavior: 'smooth',
       });
     }
@@ -154,7 +154,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col h-full bg-muted/20">
-      <ScrollArea className="flex-1" ref={scrollAreaRef}>
+      <ScrollArea className="flex-1" viewportRef={scrollViewportRef}>
           <div className="space-y-6 p-4 md:p-6">
               {messages.map((msg) => (
                   <ChatMessage key={msg.id} {...msg} isPlaying={playingMessageId === msg.id} />
