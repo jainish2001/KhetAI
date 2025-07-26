@@ -31,11 +31,10 @@ const cropDiseaseTool = ai.defineTool(
     inputSchema: z.object({
       query: z.string().describe("The user's question about the crop disease."),
       photoDataUri: z.string().describe("A photo of the crop as a data URI."),
-      targetLanguage: z.string().describe('The target language for the response.'),
     }),
     outputSchema: DiagnoseCropDiseaseOutputSchema,
   },
-  async (input) => diagnoseCropDisease(input)
+  async (input) => diagnoseCropDisease({ ...input, targetLanguage: '' }) // Target language will be handled by the main flow
 );
 
 const mandiPriceTool = ai.defineTool(
@@ -68,15 +67,15 @@ const prompt = ai.definePrompt({
     model: 'googleai/gemini-1.5-flash',
     tools: [mandiPriceTool, govSchemeTool, cropDiseaseTool],
     system: `You are KhetAI, a friendly and helpful AI assistant for Indian farmers.
-Your goal is to understand the user's question and use the available tools to provide a clear and concise answer in their selected language.
-- If the user provides an image, you MUST use the 'diagnoseCropDisease' tool.
+Your goal is to understand the user's question and use the available tools to provide a clear and concise answer.
+- If the user provides an image, you MUST use the 'diagnoseCropDisease' tool. Pass BOTH the user's text query and the image data to the tool.
 - For mandi prices, use the getMandiPriceInsights tool. The user's location is provided in the input.
 - For government schemes, use the summarizeGovernmentScheme tool.
-- For questions about crop diseases (even without an image), use the diagnoseCropDisease tool.
+- For questions about crop diseases (even without an image), if the user provides an image, you MUST use the diagnoseCropDisease tool. If not, answer from your general knowledge.
 - If the user asks a general question or something you don't have a tool for, provide a helpful answer based on your general knowledge.
 - Always be polite and address the farmer directly.
 - The user's current location is: {{location}}. Use this for any location-based queries unless they specify a different one.
-- The user's preferred language is {{targetLanguage}}. You MUST respond in this language. The tools will automatically handle translation, but your own conversational text must also be translated.`,
+- The user's preferred language is {{targetLanguage}}. The tools will handle their own translation, but your own conversational text must be translated at the end.`,
   });
 
 
@@ -87,24 +86,27 @@ const khetAIAgentFlow = ai.defineFlow(
         outputSchema: KhetAIAgentOutputSchema,
     },
     async (input) => {
-        const promptPayload = input.photoDataUri 
-            ? [ {text: input.query}, {media: {url: input.photoDataUri}}] 
+        const promptPayload = input.photoDataUri
+            ? [ {text: input.query}, {media: {url: input.photoDataUri}}]
             : input.query;
 
         const {output} = await prompt(promptPayload, {
           context: {
             location: input.location,
             targetLanguage: input.targetLanguage,
-            photoDataUri: input.photoDataUri || '', // Pass it to context for the tool
-            query: input.query
+            // Pass query and photoDataUri in context for tools to use
+            query: input.query,
+            photoDataUri: input.photoDataUri
           },
         });
-        const responseText = output?.content?.parts[0]?.text || "I'm sorry, I couldn't find an answer to your question. Please try rephrasing it.";
+        
+        const responseText = output?.content?.parts.map(p => p.text || (p.toolResponse?.content?.parts.map(tp => tp.text).join('\n') || '')).join('\n') 
+          || "I'm sorry, I couldn't find an answer to your question. Please try rephrasing it.";
 
         const translatedResponse = await translateText({ text: responseText, targetLanguage: input.targetLanguage });
         const speech = await textToSpeech({text: translatedResponse.translatedText});
 
-        return { 
+        return {
           response: translatedResponse.translatedText,
           audio: speech.audio,
         };
