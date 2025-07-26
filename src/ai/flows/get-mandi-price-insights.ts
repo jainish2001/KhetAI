@@ -29,38 +29,33 @@ const getAgmarknetData = ai.defineTool({
     location: z.string().describe('The location (e.g., city, district) to get mandi price data for.'),
   }),
   outputSchema: z.string(), // Returns a JSON string of mandi data.
-}, async (input) => {
-  const { crop, location } = input;
-  const basePrice = Math.floor(Math.random() * (5000 - 1500 + 1)) + 1500; // Random base price between 1500-5000
+}, async ({ crop, location }) => {
+    const apiKey = process.env.AGMARKNET_API_KEY;
+    if (!apiKey) {
+      throw new Error('AGMARKNET_API_KEY is not set in the environment variables.');
+    }
+    
+    // The base URL for the Agmarknet API resource.
+    const baseUrl = 'https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070';
+    const url = `${baseUrl}?api-key=${apiKey}&format=json&limit=10&filters[district]=${location}&filters[commodity]=${crop}`;
 
-  const mockData = {
-    crop: crop,
-    location: location,
-    date: new Date().toISOString().split('T')[0],
-    unit: 'quintal',
-    markets: [
-      {
-        name: `${location} Main Market`,
-        min_price: basePrice,
-        max_price: basePrice + Math.floor(Math.random() * 500),
-        modal_price: basePrice + Math.floor(Math.random() * 250),
-      },
-      {
-        name: `${location} North Market`,
-        min_price: basePrice - Math.floor(Math.random() * 200),
-        max_price: basePrice + Math.floor(Math.random() * 300),
-        modal_price: basePrice - Math.floor(Math.random() * 100),
-      },
-      {
-        name: `Nearby Village Market`,
-        min_price: basePrice - Math.floor(Math.random() * 300),
-        max_price: basePrice + Math.floor(Math.random() * 100),
-        modal_price: basePrice - Math.floor(Math.random() * 150),
-      }
-    ]
-  };
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`API call failed with status: ${response.status}`);
+        }
+        const data = await response.json();
 
-  return JSON.stringify(mockData);
+        if (!data.records || data.records.length === 0) {
+            return JSON.stringify({ error: `No data found for ${crop} in ${location}. Please try a different crop or a nearby major city.` });
+        }
+        
+        return JSON.stringify(data.records);
+
+    } catch (error) {
+        console.error('Error fetching from Agmarknet API:', error);
+        return JSON.stringify({ error: 'Failed to fetch data from the Agmarknet API.' });
+    }
 });
 
 const summarizeMandiPriceDataPrompt = ai.definePrompt({
@@ -70,12 +65,12 @@ const summarizeMandiPriceDataPrompt = ai.definePrompt({
       mandiData: z.string().describe('The JSON data received from the Agmarknet API tool.'),
   })},
   output: {schema: GetMandiPriceInsightsOutputSchema},
-  prompt: `You are an expert agricultural analyst. Analyze the provided JSON data and provide a concise, easy-to-understand summary for a farmer.
+  prompt: `You are an expert agricultural analyst. Analyze the provided JSON data, which contains mandi price records. If the JSON contains an error field, report that error to the user.
 
 Your summary must be a single paragraph and include:
-- The approximate average price for the crop.
-- The general price range (minimum and maximum).
-- A simple recommendation on where they might get the best price.
+- The approximate average price for the crop across the listed markets.
+- The general price range (minimum and maximum from all records).
+- A simple recommendation on which market has the best modal price.
 
 IMPORTANT:
 - ALWAYS use the Indian Rupee symbol (₹).
