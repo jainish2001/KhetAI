@@ -12,6 +12,7 @@ import {getMandiPriceInsights} from './get-mandi-price-insights';
 import {summarizeGovernmentScheme} from './summarize-government-scheme';
 import { textToSpeech } from './text-to-speech';
 import {
+  DiagnoseCropDiseaseInputSchema,
   DiagnoseCropDiseaseOutputSchema,
   GetMandiPriceInsightsInputSchema,
   GetMandiPriceInsightsOutputSchema,
@@ -27,14 +28,11 @@ import { translateText } from './translate-text';
 const cropDiseaseTool = ai.defineTool(
   {
     name: 'diagnoseCropDisease',
-    description: 'Diagnoses crop diseases from a user query and an image. Use this tool if the user provides an image or asks a question about crop health.',
-    inputSchema: z.object({
-      query: z.string().describe("The user's question about the crop disease."),
-      photoDataUri: z.string().describe("A photo of the crop as a data URI."),
-    }),
+    description: 'Use this tool ONLY when the user provides an image of a plant. This tool analyzes the image to diagnose crop diseases.',
+    inputSchema: DiagnoseCropDiseaseInputSchema,
     outputSchema: DiagnoseCropDiseaseOutputSchema,
   },
-  async (input) => diagnoseCropDisease({ ...input, targetLanguage: '' }) // Target language will be handled by the main flow
+  async (input) => diagnoseCropDisease(input)
 );
 
 const mandiPriceTool = ai.defineTool(
@@ -71,7 +69,6 @@ Your goal is to understand the user's question and use the available tools to pr
 - If the user provides an image, you MUST use the 'diagnoseCropDisease' tool. Pass BOTH the user's text query and the image data to the tool.
 - For mandi prices, use the getMandiPriceInsights tool. The user's location is provided in the input.
 - For government schemes, use the summarizeGovernmentScheme tool.
-- For questions about crop diseases (even without an image), if the user provides an image, you MUST use the diagnoseCropDisease tool. If not, answer from your general knowledge.
 - If the user asks a general question or something you don't have a tool for, provide a helpful answer based on your general knowledge.
 - Always be polite and address the farmer directly.
 - The user's current location is: {{location}}. Use this for any location-based queries unless they specify a different one.
@@ -96,7 +93,9 @@ const khetAIAgentFlow = ai.defineFlow(
             targetLanguage: input.targetLanguage,
             // Pass query and photoDataUri in context for tools to use
             query: input.query,
-            photoDataUri: input.photoDataUri
+            photoDataUri: input.photoDataUri,
+            schemeName: input.query, // Pass query as schemeName for govSchemeTool
+            crop: input.query, // Pass query as crop for mandiPriceTool
           },
         });
         
