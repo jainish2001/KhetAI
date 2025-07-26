@@ -12,12 +12,8 @@ import { getMandiPriceInsights } from './get-mandi-price-insights';
 import { summarizeGovernmentScheme } from './summarize-government-scheme';
 import { textToSpeech } from './text-to-speech';
 import {
-  DiagnoseCropDiseaseInput,
-  DiagnoseCropDiseaseInputSchema,
   DiagnoseCropDiseaseOutputSchema,
-  GetMandiPriceInsightsInputSchema,
   GetMandiPriceInsightsOutputSchema,
-  SummarizeGovernmentSchemeInputSchema,
   SummarizeGovernmentSchemeOutputSchema,
   KhetAIAgentInput,
   KhetAIAgentInputSchema,
@@ -30,7 +26,11 @@ const cropDiseaseTool = ai.defineTool(
   {
     name: 'diagnoseCropDisease',
     description: 'Use this tool ONLY when the user provides an image of a plant. This tool analyzes the image to diagnose crop diseases.',
-    inputSchema: DiagnoseCropDiseaseInputSchema,
+    inputSchema: z.object({
+        query: z.string(),
+        photoDataUri: z.string(),
+        targetLanguage: z.string(),
+    }),
     outputSchema: DiagnoseCropDiseaseOutputSchema,
   },
   async (input) => diagnoseCropDisease(input)
@@ -40,7 +40,11 @@ const mandiPriceTool = ai.defineTool(
   {
     name: 'getMandiPriceInsights',
     description: 'Gets mandi price insights for a specific crop and location.',
-    inputSchema: GetMandiPriceInsightsInputSchema,
+    inputSchema: z.object({
+        crop: z.string(),
+        location: z.string(),
+        targetLanguage: z.string(),
+    }),
     outputSchema: GetMandiPriceInsightsOutputSchema,
   },
   async (input) => getMandiPriceInsights(input)
@@ -49,8 +53,12 @@ const mandiPriceTool = ai.defineTool(
 const govSchemeTool = ai.defineTool(
   {
     name: 'summarizeGovernmentScheme',
-    description: 'Summarizes a government scheme for a farmer.',
-    inputSchema: SummarizeGovernmentSchemeInputSchema,
+    description: 'Summarizes a government scheme for a farmer based on their query.',
+    inputSchema: z.object({
+        schemeName: z.string().describe("The name of the scheme, extracted from the user's query."),
+        query: z.string().describe("The user's full question about the scheme."),
+        targetLanguage: z.string(),
+    }),
     outputSchema: SummarizeGovernmentSchemeOutputSchema,
   },
   async (input) => summarizeGovernmentScheme(input)
@@ -66,13 +74,13 @@ const prompt = ai.definePrompt({
   tools: [mandiPriceTool, govSchemeTool, cropDiseaseTool],
   system: `You are KhetAI, a friendly and helpful AI assistant for Indian farmers.
 Your goal is to understand the user's question and use the available tools to provide a clear and concise answer.
-- If the user provides an image, you MUST use the 'diagnoseCropDisease' tool. Pass BOTH the user's text query and the image data to the tool.
-- For mandi prices, use the getMandiPriceInsights tool. The user's location is provided in the input.
-- For government schemes, use the summarizeGovernmentScheme tool.
+- If the user provides an image, you MUST use the 'diagnoseCropDisease' tool. Pass the user's text query, the image data, and the target language to the tool.
+- For mandi prices, use the getMandiPriceInsights tool. The user's location is provided in the input. Extract the crop name from the query.
+- For government schemes, use the summarizeGovernmentScheme tool. Extract the scheme name from the query.
 - If the user asks a general question or something you don't have a tool for, provide a helpful answer based on your general knowledge.
 - Always be polite and address the farmer directly.
 - The user's current location is: {{location}}. Use this for any location-based queries unless they specify a different one.
-- The user's preferred language is {{targetLanguage}}. The tools will handle their own translation, but your own conversational text must be translated at the end.`,
+- The user's preferred language is {{targetLanguage}}. Your final answer must be in this language. The tools will handle their own translation, but if you answer directly, you must translate it yourself.`,
 });
 
 const khetAIAgentFlow = ai.defineFlow(
@@ -86,18 +94,8 @@ const khetAIAgentFlow = ai.defineFlow(
       ? [{ text: input.query }, { media: { url: input.photoDataUri } }]
       : input.query;
 
-    const llmResponse = await prompt(promptPayload, {
-      context: {
-        location: input.location,
-        targetLanguage: input.targetLanguage,
-        photoDataUri: input.photoDataUri,
-        query: input.query,
-        schemeName: input.query,
-        crop: input.query
-      },
-    });
-
-    const llmOutput = llmResponse.output;
+    const llmResponse = await prompt(promptPayload);
+    const llmOutput = llmResponse.output();
 
     if (!llmOutput) {
        return {
@@ -105,14 +103,16 @@ const khetAIAgentFlow = ai.defineFlow(
       };
     }
     
-    let responseText = llmOutput.text;
+    let responseText: string | undefined;
 
     if (llmOutput.toolCalls?.length) {
         const toolResponse = await llmResponse.toolRequest?.responses();
         const toolOutput = toolResponse?.[0]?.output;
         if(toolOutput){
-            responseText = toolOutput.diagnosis || toolOutput.summary || JSON.stringify(toolOutput);
+            responseText = (toolOutput as any).diagnosis || (toolOutput as any).summary || JSON.stringify(toolOutput);
         }
+    } else {
+        responseText = llmOutput.text;
     }
     
     if (!responseText) {
