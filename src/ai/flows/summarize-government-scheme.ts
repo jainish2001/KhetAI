@@ -36,7 +36,8 @@ const summarizeGovernmentSchemePrompt = ai.definePrompt({
   Query: {{{query}}}
 
   Provide a concise and easy-to-understand summary of the scheme, including key benefits and eligibility criteria, tailored to the farmer's query.
-  Do not include information that is not available in the provided information. Limit the summary to three sentences.`,
+  Do not include information that is not available in the provided information. Limit the summary to three sentences.
+  But mention some more basic or the important info related to query which can help farmer in best way for farmer's growth.`,
 });
 
 const summarizeGovernmentSchemeFlow = ai.defineFlow(

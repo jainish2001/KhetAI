@@ -12,6 +12,7 @@ import {getMandiPriceInsights} from './get-mandi-price-insights';
 import {summarizeGovernmentScheme} from './summarize-government-scheme';
 import { textToSpeech } from './text-to-speech';
 import {
+  DiagnoseCropDiseaseInput,
   DiagnoseCropDiseaseInputSchema,
   DiagnoseCropDiseaseOutputSchema,
   GetMandiPriceInsightsInputSchema,
@@ -86,22 +87,22 @@ const khetAIAgentFlow = ai.defineFlow(
         const promptPayload = input.photoDataUri
             ? [ {text: input.query}, {media: {url: input.photoDataUri}}]
             : input.query;
-
-        const {output} = await prompt(promptPayload, {
-          context: {
-            location: input.location,
-            targetLanguage: input.targetLanguage,
-            // Pass query and photoDataUri in context for tools to use
-            query: input.query,
-            photoDataUri: input.photoDataUri,
-            schemeName: input.query, // Pass query as schemeName for govSchemeTool
-            crop: input.query, // Pass query as crop for mandiPriceTool
-          },
-        });
         
-        const responseText = output?.content?.parts.map(p => p.text || (p.toolResponse?.content?.parts.map(tp => tp.text).join('\n') || '')).join('\n') 
-          || "I'm sorry, I couldn't find an answer to your question. Please try rephrasing it.";
-
+        // The context for tools is inferred from the flow's input schema.
+        // We pass the full input object to the prompt call.
+        const {output} = await prompt(input);
+        
+        const responseText = output?.content?.parts.map((p: { text?: string; toolResponse?: { name: string, output: any } }) => {
+            if (p.text) return p.text;
+            if (p.toolResponse) {
+                // Extract the relevant summary/diagnosis from the tool's output object
+                if (p.toolResponse.name === 'diagnoseCropDisease') return p.toolResponse.output.diagnosis;
+                if (p.toolResponse.name === 'getMandiPriceInsights') return p.toolResponse.output.summary;
+                if (p.toolResponse.name === 'summarizeGovernmentScheme') return p.toolResponse.output.summary;
+            }
+            return '';
+        }).join('\n').trim() || "I'm sorry, I couldn't find an answer to your question. Please try rephrasing it.";
+        
         const translatedResponse = await translateText({ text: responseText, targetLanguage: input.targetLanguage });
         const speech = await textToSpeech({text: translatedResponse.translatedText});
 

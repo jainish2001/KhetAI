@@ -71,6 +71,7 @@ Your summary must be a single paragraph and include:
 - The approximate average price for the crop across the listed markets.
 - The general price range (minimum and maximum from all records).
 - A simple recommendation on which market has the best modal price.
+- Suggest the better time when the farmer should sell his crop.
 
 IMPORTANT:
 - ALWAYS use the Indian Rupee symbol (₹).
