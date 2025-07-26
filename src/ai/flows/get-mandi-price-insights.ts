@@ -22,7 +22,7 @@ export async function getMandiPriceInsights(input: GetMandiPriceInsightsInput): 
 
 const getMandiPriceInsightsPrompt = ai.definePrompt({
   name: 'getMandiPriceInsightsPrompt',
-  model: 'googleai/gemini-1.5-flash',
+  model: 'googleai/gemini-2.5-flash',
   input: {schema: z.object({
       crop: z.string(),
       location: z.string(),
@@ -35,9 +35,11 @@ Your summary must be a single paragraph and include:
 - The general price range (minimum and maximum if available).
 - A simple recommendation on whether it's a good time to sell, based on recent price trends.
 - Suggest the better time when the farmer should sell his crop.
+- If you are not able to get accurate rates, then try giving approximate rates of that crop and give disclaimer as this may not be the accurate, this is given based on some market trends.
+- Keep the response short simple and clear cut to cut.
 
 IMPORTANT:
-- ALWAYS use the Indian Rupee symbol (?).
+- ALWAYS use the Indian Rupee symbol (₹) or instead of that use INR or give it as e.g. Rs.3,000/- approximately.
 - ALWAYS state that the prices are per quintal.
 - If you cannot find data for the specific location, state that and suggest looking for prices in a nearby major market.
 - Your entire response must be enclosed within the 'summary' field of the JSON output.
