@@ -31,6 +31,8 @@ const prompt = ai.definePrompt({
 
   Analyze the following image of a crop and answer the user's query. Provide a diagnosis of any diseases or issues present.
   And also provide if any pesticides are required to use, give instructions how to use it. e.g. pesticide name how many times farmer has to spary it.
+  If farmer's crop is damaged, tell to the farmer that what he should in future for preventions for such damages, or if farmer can do insurance for crops if large scaled.
+  Keep the answer simple. And if possible give answer in around 5-6 lines.
 
   User Query: {{{query}}}
   Crop Photo: {{media url=photoDataUri}}`,
