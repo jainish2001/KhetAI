@@ -1,3 +1,5 @@
+// src/ai/flows/khet-ai-agent.ts
+
 'use server';
 /**
  * @fileOverview A conversational agent that can answer questions about farming.
@@ -65,7 +67,7 @@ export async function khetAIAgent(input: KhetAIAgentInput): Promise<KhetAIAgentO
 
 const prompt = ai.definePrompt({
     name: 'khetAIAgentPrompt',
-    model: 'googleai/gemini-1.5-flash',
+    model: 'vertexai/gemini-1.5-flash',
     tools: [mandiPriceTool, govSchemeTool, cropDiseaseTool],
     system: `You are KhetAI, a friendly and helpful AI assistant for Indian farmers.
 Your goal is to understand the user's question and use the available tools to provide a clear and concise answer in their selected language.
@@ -91,16 +93,40 @@ const khetAIAgentFlow = ai.defineFlow(
             ? [ {text: input.query}, {media: {url: input.photoDataUri}}]
             : input.query;
 
-        const result = await prompt(promptPayload, input);
-        
-        const responseText = result.output?.content?.parts[0]?.text || result.choices[0]?.message.tool_calls?.[0]?.output.result || "I'm sorry, I couldn't find an answer to your question. Please try rephrasing it.";
+        try {
+            const response = await prompt(promptPayload, {
+              context: {
+                location: input.location,
+                targetLanguage: input.targetLanguage,
+                photoDataUri: input.photoDataUri || '',
+                query: input.query
+              },
+            });
 
-        const translatedResponse = await translateText({ text: responseText, targetLanguage: input.targetLanguage });
-        const speech = await textToSpeech({text: translatedResponse.translatedText});
+            // FIX: Access .text as a property, not a method.
+            const responseText = response.text;
 
-        return {
-          response: translatedResponse.translatedText,
-          audio: speech.audio,
-        };
+            if (!responseText) {
+              throw new Error("Received an empty response from the AI model.");
+            }
+
+            const translatedResponse = await translateText({ text: responseText, targetLanguage: input.targetLanguage });
+            const speech = await textToSpeech({text: translatedResponse.translatedText});
+
+            return {
+              response: translatedResponse.translatedText,
+              audio: speech.audio,
+            };
+        } catch (error) {
+            console.error("Error in khetAIAgentFlow:", error);
+
+            const fallbackMessage = "I'm sorry, an unexpected error occurred. Please try again later.";
+            const speech = await textToSpeech({text: fallbackMessage});
+
+            return {
+              response: fallbackMessage,
+              audio: speech.audio,
+            };
+        }
     }
 );

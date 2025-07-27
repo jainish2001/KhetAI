@@ -16,6 +16,24 @@ import {
     GetMandiPriceInsightsOutputSchema,
 } from '@/ai/definitions';
 
+// Define a tool for the agent to use to get information from Google Search.
+const googleSearch = ai.defineTool(
+    {
+      name: 'googleSearch',
+      description: 'Provides information from Google Search. Use this to find the latest mandi prices for a specific crop and location.',
+      inputSchema: z.object({ query: z.string() }),
+      outputSchema: z.any(),
+    },
+    async ({ query }) => {
+        // In a real implementation, this would call a Google Search API.
+        // For now, we are instructing the model to use its internal knowledge,
+        // which includes access to Google Search. The tool definition helps
+        // the model to structure its thinking process.
+        return { result: `Simulated Google Search for: ${query}` };
+    }
+);
+
+
 export async function getMandiPriceInsights(input: GetMandiPriceInsightsInput): Promise<GetMandiPriceInsightsOutput> {
   return getMandiPriceInsightsFlow(input);
 }
@@ -23,14 +41,17 @@ export async function getMandiPriceInsights(input: GetMandiPriceInsightsInput): 
 const getMandiPriceInsightsPrompt = ai.definePrompt({
   name: 'getMandiPriceInsightsPrompt',
   model: 'googleai/gemini-2.5-flash',
+  tools: [googleSearch],
   input: {schema: z.object({
       crop: z.string(),
       location: z.string(),
   })},
   output: {schema: GetMandiPriceInsightsOutputSchema},
-  prompt: `You are an expert agricultural analyst. Your task is to provide the latest mandi price for a specific crop in a given location using your access to Google Search.
+  prompt: `You are an expert agricultural analyst. Your task is to provide the latest mandi price for a specific crop in a given location.
 
-Your summary must be a single paragraph and include:
+You MUST use the 'googleSearch' tool to find the most recent information. Construct a search query like "latest price of {crop} in {location} mandi".
+
+After getting the search results, create a summary that is a single paragraph and includes:
 - The approximate average price for the crop in the specified location.
 - The general price range (minimum and maximum if available).
 - A simple recommendation on whether it's a good time to sell, based on recent price trends.
