@@ -77,8 +77,8 @@ Follow these steps to set up and run the project locally.
 **1. Clone the Repository**
 
 ```bash
-git clone https://github.com/your-username/khetai-project.git
-cd khetai-project
+git clone https://github.com/jainish2001/KhetAI.git
+cd KhetAI
 ```
 
 **2. Install Dependencies**
@@ -89,10 +89,10 @@ npm install
 
 **3. Set Up Environment Variables**
 
-Create a `.env` file in the root of the project by copying the example:
+Create a `.env` file in the root of the project:
 
 ```bash
-cp .env.example .env
+cp .env
 ```
 
 Open the `.env` file and add your Google Gemini API key:
