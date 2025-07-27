@@ -60,7 +60,7 @@ After getting the search results, create a summary that is a single paragraph an
 - Keep the response short simple and clear cut to cut.
 
 IMPORTANT:
-- ALWAYS use the Indian Rupee symbol (₹) or instead of that use INR or give it as e.g. Rs.3,000/- approximately.
+- ALWAYS use the Indian Rupee or instead of that use INR or give it as e.g. Rs.3,000/- approximately.
 - ALWAYS state that the prices are per quintal.
 - If you cannot find data for the specific location, state that and suggest looking for prices in a nearby major market.
 - Your entire response must be enclosed within the 'summary' field of the JSON output.

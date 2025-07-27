@@ -643,7 +643,194 @@ const translations = {
     'location_not_set': 'స్థానం సెట్ చేయబడలేదు',
     'location_error': 'స్థానాన్ని పొందలేకపోయాము. దయచేసి అనుమతిని మంజూరు చేసి మళ్లీ ప్రయత్నించండి.',
     'location_fetching': 'స్థానం పొందుతోంది...',
-  }  
+  },
+  tulu: {
+    'home': 'ಬರಿ',
+    'crop_health': 'ಬಳಿ ಆರೋಗ್ಯ',
+    'mandi_prices': 'ಮಂಡಿ ಬೆಲೆ',
+    'gov_schemes': 'ಸರ್ಕಾರ ಯೋಜನೆಗಲು',
+    'history': 'ಇತಿಹಾಸ',
+    'settings': 'ಸೆಟ್ಟಿಂಗ್ಸ್',
+    'login': 'ಲಾಗಿನ್ ಮಲ್ಪುಲಿ',
+    'logout': 'ಲಾಗ್ ಔಟ್ ಮಲ್ಪುಲಿ',
+  
+    'welcome_title': 'ಖೆತ್AIಗ್ ಸ್ವಾಗತ',
+    'welcome_subtitle': 'ನಿಂಡ್ ವೈಯಕ್ತಿಕ ಕೃಷಿ ಸಹಾಯಕ, AI ಪವರ್ ಮಲ್ಪುಂಡು.',
+    'welcome_subtitle_agent': 'ನಿಂಡ್ ತೋಟದ ಬಗ್ಗೆ ಎನ್ದು ಕೇಳೆರಿ.',
+    'welcome_message_agent': 'ನಮಸ್ಕಾರ! ಯಾನ್ ಖೆತ್AI, ನಿಂಡ್ ವೈಯಕ್ತಿಕ ಕೃಷಿ ಸಹಾಯಕ. ಇವತ್ತು ನಿಕು ಎಂತ ಸಹಾಯ ಮಲ್ಪುಂಡು? ಬಳಿ ರೋಗ, ಮಂಡಿ ಬೆಲೆ, ಅಥವಾ ಸರ್ಕಾರಿ ಯೋಜನೆಗ್ಲ್ ಬಗ್ಗೆ ಕೇಳೆರಿ.',
+    'agent_placeholder': 'ಒಂಜಿ ಪ್ರಶ್ನೆ ಕೇಳೆರಿ...',
+    'agent_error': 'ಒಂಜಿ ದೋಷ ಉಂಡು',
+    'agent_error_message': 'ಕ್ಷಮೆ ಕೊಡಿ, ಎದೆಂದು ತಪ್ಪು ಆವಂಡು. ದಯೆ ಮಲ್ತ್ ಪುನಃ ಪ್ರಯತ್ನ ಮಲ್ಪುಲಿ.',
+    'set_location_for_agent': 'ಸ್ಥಳಿಕ ಮಾಹಿತಿ ಪೋಲೊಂಡುಗ್, ದಯೆ ಮಲ್ಪುಲಿ ಮೇಲ್ದಡಿನ್ ಕೌಡೆ ನಿಂಡ್ ಸ್ಥಳ ಸೆಟ್ ಮಲ್ಪುಲಿ.',
+  
+    'crop_health_diagnosis_title': 'ಬಳಿ ಆರೋಗ್ಯ ತಪಾಸೆ',
+    'crop_health_diagnosis_desc': 'ಬಳಿಯ ಫೋಟೋ ಅಪ್ಲೋಡ್ ಮಲ್ಪುಲಿ, ತಕ್ಷಣ ಆರೋಗ್ಯ ತಪಾಸೆ ಅಡ್ ಸಲಹೆ ತಕ್ಕುಪಿನ್.',
+    'mandi_price_insights_title': 'ಮಂಡಿ ಬೆಲೆ ಮಾಹಿತಿ',
+    'mandi_price_insights_desc': 'ನಿಂಡ್ ಸ್ಥಳದ ಮಂಡಿದಿಂದ ಇತ್ತಾಂಚೆ ಬೆಲೆಗ್ಲ್ ತಕ್ಕುಪಿನ್.',
+    'gov_schemes_info_title': 'ಸರ್ಕಾರಿ ಯೋಜನೆಗ್ಲ್',
+    'gov_schemes_info_desc': 'ಯೋಜನೆ ಬಗ್ಗೆ ಕೇಳೆರಿ, ಉಪಯೋಗ್ ಮಠ್ ಅರ್ಹತೆದ ಸರಳ ಮಾಹಿತಿ ತಕ್ಕುಪಿನ್.',
+    'query_history_title': 'ಪ್ರಶ್ನೆ ಇತಿಹಾಸ',
+    'query_history_desc': 'ಬೊಕ್ಕದ ಪ್ರಶ್ನೆಗ್ಲ್ ಮತ್ AI ನೀಡಿದ ಸಲಹೆಗ್ಲ್ ನೋಡುಲಿ.',
+  
+    'upload_crop_photo': 'ಬಳಿ ಫೋಟೋ ಅಪ್ಲೋಡ್ ಮಲ್ಪುಲಿ',
+    'upload_image_cta': 'ಅಪ್ಲೋಡ್ ಮಲ್ಪೊದ್ ಕ್ಲಿಕ್ ಮಲ್ಪುಲಿ ಅಥವಾ ಎಳೆದ ಡ್ರಾಪ್ ಮಲ್ಪುಲಿ',
+    'diagnose_button': 'ಬಳಿಗೆ ತಪಾಸೆ ಮಲ್ಪುಲಿ',
+    'diagnosis_placeholder': 'AI ತಪಾಸೆ ಇಲ್ಲ್ ತೋರೊಂಡು...',
+    'diagnosis_in_progress': 'ತಪಾಸೆ ನಡದ್ ಉಂಡು...',
+    'diagnosis_result_title': 'ತಪಾಸೆ ಫಲಿತಾಂಶ',
+    'diagnosis_error': 'ತಪಾಸೆ ತಕ್ಕುಪಾಯೆ. ಪುನಃ ಪ್ರಯತ್ನ ಮಲ್ಪುಲಿ.',
+    'crop_query_placeholder': 'ಉದಾ: ಇದು ಎತ್ ರೋಗ? ಎಂತ ಚಿಕಿತ್ಸೆ?',  
+  
+    'mandi_prices_title': 'ಮಂಡಿ ಬೆಲೆ ಮಾಹಿತಿ',
+    'crop_label': 'ಬಳಿ',
+    'crop_placeholder': 'ಉದಾ: ಗೋಧಿ, ಅಕ್ಕಿ',
+    'location_label': 'ಸ್ಥಳ',
+    'location_placeholder': 'ಉದಾ: ಡೆಲ್ಲಿ, ಮುಂಬಯಿ',
+    'get_insights_button': 'ಮಾಹಿತಿ ತಕ್ಕುಪಿನ್',
+    'insights_placeholder': 'ಬೆಲೆ ಮಾಹಿತಿ ಇಲ್ಲ್ ತೋರೊಂಡು...',
+    'insights_error': 'ಬೆಲೆ ಮಾಹಿತಿ ತಕ್ಕುಪಾಯೆ. ದಯೆ ಮಲ್ತ್ ಪುನಃ ಪ್ರಯತ್ನ ಮಲ್ಪುಲಿ.',
+    'speak_query_button': 'ನಿಂಡ್ ಪ್ರಶ್ನೆ ಉರಿಕೆರಿ',
+  
+    'gov_schemes_title': 'ಸರ್ಕಾರಿ ಯೋಜನೆ ಮಾಹಿತಿ',
+    'scheme_name_label': 'ಯೋಜನೆಯ ಪಯರು',
+    'scheme_name_placeholder': 'ಉದಾ: ಪಿ.ಎಂ. ಕಿಸಾನ್ ಸಮ್ಮಾನ್ ನಿಧಿ',
+    'query_label': 'ನಿಂಡ್ ಪ್ರಶ್ನೆ',
+    'query_placeholder': 'ಉದಾ: ಲಾಭ ಏನು?',
+    'get_summary_button': 'ಸಾರಾಂಶ ತಕ್ಕುಪಿನ್',
+    'summary_placeholder': 'ಯೋಜನೆಯ ಸಾರಾಂಶ ಇಲ್ಲ್ ತೋರೊಂಡು...',
+    'summary_error': 'ಸಾರಾಂಶ ತಕ್ಕುಪಾಯೆ. ದಯೆ ಮಲ್ತ್ ಪುನಃ ಪ್ರಯತ್ನ ಮಲ್ಪುಲಿ.',
+  
+    'history_title': 'ನಿಂಡ್ ಪ್ರಶ್ನೆ ಇತಿಹಾಸ',
+    'history_empty': 'ಇನ್ನೂ ಪ್ರಶ್ನೆ ಸೇವ್ ಮಾಲ್ಪಿಲೆ.',
+    'query_type_crop': 'ಬಳಿ ತಪಾಸೆ',
+    'query_type_mandi': 'ಮಂಡಿ ಬೆಲೆ',
+    'query_type_scheme': 'ಸರ್ಕಾರಿ ಯೋಜನೆ',
+    'query_on': 'ಪ್ರಶ್ನೆ ದಿನಾಂಕದ್',
+    'clear_history_button': 'ಇತಿಹಾಸ ತೆಗೆಯಿ',
+    'settings_placeholder': 'ಭವಿಷ್ಯದ ಸೆಟ್ಟಿಂಗ್‌ಸ್ ಇಲ್ಲಿ ಬರ್ಪುನು, ತೋಟದ ಬಗೆ, ಪ್ರೊಫೈಲ್ ಮಾಹಿತಿ ಮತ್ ನೋಟಿಫಿಕೇಶನ್ ಆಯ್ಕೆಗಳು.',
+  
+    'login_title': 'ಖೆತ್AIಲಾಯ್ ಲಾಗಿನ್ ಮಲ್ಪುಲಿ',
+    'login_desc': 'ಒಂಜಿ ಸಮಯದ ಪಾಸ್ವರ್ಡ್ (OTP) ಪಡಲ್ನ್ದ್, ನಿಂಡ್ ಫೋನ್ ನಂಬರ್ ನ್ ದಯೆ ಮಲ್ಪುಲಿ.',
+    'phone_number_label': 'ಫೋನ್ ನಂಬರ್',
+    'phone_number_placeholder': '1234567890',
+    'send_otp_button': 'OTP ಕಳುಹೆರಿ',
+    'otp_label': 'OTP ಎಂಟರ್ ಮಲ್ಪುಲಿ',
+    'otp_placeholder': '123456',
+    'verify_otp_button': 'OTP ಪರಿಶೀಲನೆ ಮಲ್ಪುಲಿ',
+  
+    'location_title': 'ನಿಂಡ್ ಸ್ಥಳ ಸೆಟ್ ಮಲ್ಪುಲಿ',
+    'location_subtitle': 'ನಿಂಡ್ ಪ್ರದೇಶದ ಹೊಂದಿದ ಬೆಲೆಗ್ಲ್ ತಕ್ಕುಪಿನ್.',
+    'use_current_location': 'ಇಪ್ಪದ್ ಸ್ಥಳ ಉಪಯೋಗಿ',
+    'or_enter_manually': 'ಅಥವಾ ನಿಂಡ್ ಊರ್ ಹಸ್ತಚಾಲಿತ್ ಎಂಟರ್ ಮಲ್ಪುಲಿ',
+    'city_label': 'ಊರ್',
+    'city_placeholder': 'ಉದಾ: ಪುಣೆ',
+    'save_location': 'ಸ್ಥಳ ಸೇವ್ ಮಲ್ಪುಲಿ',
+    'location_set': 'ಸ್ಥಳ ಸೆಟ್ ಆಯಿದು',
+    'location_not_set': 'ಸ್ಥಳ ಸೆಟ್ ಆಯಿನ್',
+    'location_error': 'ಸ್ಥಳ ತಕ್ಕುಪಾಯೆ. ಅನುಮತಿ ಕೊರಿ ಮತ್ ಪುನಃ ಪ್ರಯತ್ನ ಮಲ್ಪುಲಿ.',
+    'location_fetching': 'ಸ್ಥಳ ತಕ್ಕುಪಿನಡ್...'
+  },
+  kon: { // Konkani (Goa)
+    // App Shell
+    'home': 'घर',
+    'crop_health': 'पोड्दर झैतून',
+    'mandi_prices': 'मंडी मोब',
+    'gov_schemes': 'सरकार योजना',
+    'history': 'इतिहास',
+    'settings': 'सेटिंग्स',
+    'login': 'लॉगिन झा',
+    'logout': 'लॉगआउट झा',
+
+    // Home Page
+    'welcome_title': 'KhetAI‑क स्वागत',
+    'welcome_subtitle': 'तुमचो व्यक्तिगत खेती सहाय्यक, AI‑पॉवर जाल्लें.',
+    'welcome_subtitle_agent': 'तुंजी खेती विषयी एकदा जास्त विचार केलें.',
+    'welcome_message_agent': 'नमस्कार! हांव KhetAI, तुमचो व्यक्तिगत खेती सहाय्यक. आइज तुमकां कितें मदत करूं? तुमी पोद्दर रोग, मंडी मोब, न्हय सरकार योजना विषयी विचार करू.',
+    'agent_placeholder': 'एक प्राश्न विचार...',
+    'agent_error': 'एक भुल जाल्यार',
+    'agent_error_message': 'माफ करं, कितें चुक जालें. कॅल जाल्यार फेर प्रवयत्न करा.',
+    'set_location_for_agent': 'मंडी मोब विषयी लोकल माहिती सांचपाक, तुमचें लोकेशन टॉप‑राइट कोर्नरांत सेट कर.',
+
+    // Crop Health Diagnosis
+    'crop_health_diagnosis_title': 'पोड्दर झैतून डायग्नोसिस',
+    'crop_health_diagnosis_desc': 'तुमचो पोद्दराचो फोटो अपलोड कर, तुरंत झैतून डायग्नोसिस आनि सुझाव पाव.',
+
+    // Mandi Price Insights
+    'mandi_price_insights_title': 'मंडी मोब माहिती',
+    'mandi_price_insights_desc': 'तुमचो लोकल मंडी तुका पोद्दराचें आधी मोब खबर दी.',
+
+    // Govt Schemes Info
+    'gov_schemes_info_title': 'सरकार योजना',
+    'gov_schemes_info_desc': 'सरकार योजना विषयी विचार कर आनी फायदे आनि पात्रता‑बापтеу सोडताल माहिती घ्या.',
+
+    // Query History
+    'query_history_title': 'तुझे प्रश्नान दे इतिहास',
+    'query_history_desc': 'तुमचे कितें प्रश्न विचारलं आनि AI‑दे तलें सुझाव पाव.',
+
+    // Crop Diagnosis Page
+    'upload_crop_photo': 'पोड्दर फोटो अपलोड कर',
+    'upload_image_cta': 'अपलोड करतां क्लिक कर वा ड्रॅग आनि ड्रॉप कर',
+    'diagnose_button': 'पोड्दर डायग्नोसिस कर',
+    'diagnosis_placeholder': 'AI डायग्नोसिस इथं दिसतलो...',
+    'diagnosis_in_progress': 'डायग्नोसिस चालत आसू...',
+    'diagnosis_result_title': 'डायग्नोसिस परिनाम',
+    'diagnosis_error': 'डायग्नोसिस मेळ्लो ना, फेर प्रयत्न कर.',
+    'crop_query_placeholder': 'उदाहरण: हे रोग कितें आसा आनि तेंच उपचार कितें कर?',    
+
+    // Mandi Prices Page
+    'mandi_prices_title': 'मंडी मोब माहिती',
+    'crop_label': 'पोड्दर',
+    'crop_placeholder': 'उदाहरण: गोडी, ओक्रा',
+    'location_label': 'ठाण',
+    'location_placeholder': 'उदाहरण: पणजी, मडगांव',
+    'get_insights_button': 'मMob माहिती घ्या',
+    'insights_placeholder': 'मंडी मोब माहिती इथं दिसतलो...',
+    'insights_error': 'मोब माहिती मेळ्लो ना, फेर प्रयत्न कर.',
+    'speak_query_button': 'तुमचो प्रश्न बोला',
+
+    // Govt Schemes Page
+    'gov_schemes_title': 'सरकार योजना माहिती',
+    'scheme_name_label': 'योजनांचो नाव',
+    'scheme_name_placeholder': 'उदाहरण: PM किसान सम्मान निधि',
+    'query_label': 'तुमचो प्रश्न',
+    'query_placeholder': 'उदाहरण: फायदा कितें आसा?',
+    'get_summary_button': 'सारांश घ्या',
+    'summary_placeholder': 'योजनांचो सारांश इथं दिसतलो...',
+    'summary_error': 'सारांश मेळ्लो ना, फेर प्रयत्न कर.',
+
+    // History Page
+    'history_title': 'तुमचे प्रश्नान दे इतिहास',
+    'history_empty': 'तुमका अजून कितें प्रश्न सेव्ह केले नाय.',
+    'query_type_crop': 'पोड्दर डायग्नोसिस',
+    'query_type_mandi': 'मंडी मोब',
+    'query_type_scheme': 'सरकार योजना',
+    'query_on': 'प्राश्नां आनी',
+    'clear_history_button': 'इतिहास साफ कर',
+    'settings_placeholder': 'भवितवलेलो सेटिंग्स इथं आवयातलें, जसे फार्म प्रकार, प्रोफाइल माहिती आनि अधिसूचना प्राधान्य.',
+
+    // Login Page
+    'login_title': 'KhetAI‑म लॉगिन झा',
+    'login_desc': 'तुमचो फोन नंबर दिल्यार OTP मेळ्ट, एक‑वेळो पॅसवर्ड घेतलें.',
+    'phone_number_label': 'फोन नंबर',
+    'phone_number_placeholder': '1234567890',
+    'send_otp_button': 'OTP पाठव',
+    'otp_label': 'OTP विचार',
+    'otp_placeholder': '123456',
+    'verify_otp_button': 'OTP व्हेरिफाय कर',
+
+    // Location
+    'location_title': 'तुमचो ठाण सेट कर',
+    'location_subtitle': 'तुमचो क्षेत्रासंबंधित मंडी मोब व लोकल माहिती घ्या.',
+    'use_current_location': 'म्हुंचो आसो ठाण वापर',
+    'or_enter_manually': 'नाय तर तुमचो शहर हाथान मॅन्युअली भर',
+    'city_label': 'शहर',
+    'city_placeholder': 'उदाहरण: पणजी',
+    'save_location': 'ठाण सेव्ह कर',
+    'location_set': 'ठाण सेट जाल्लो',
+    'location_not_set': 'ठाण सेट जालें नय',
+    'location_error': 'ठाण मेळ्लो ना, कृपया परवानगी द्या आनि फेर प्रयत्न कर.',
+    'location_fetching': 'ठाण मेळल्यार आसा...'
+  }
 };
 
 export default translations as Record<string, Record<string, string>>;

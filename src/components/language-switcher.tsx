@@ -18,6 +18,8 @@ const languages = [
   { value: 'mr', label: 'मराठी (Marathi)' },
   { value: 'ta', label: 'தமிழ் (Tamil)' },
   { value: 'ml', label: 'മലയാളം (Malayalam)' },
+  { value: 'tulu', label: 'ತುಳು (Tulu)' },
+  { value: 'kon', label: 'कोंकणी (Konkani)' },
 ];
 
 export default function LanguageSwitcher() {
