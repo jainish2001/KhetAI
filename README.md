@@ -59,6 +59,7 @@ khetai-project/
 ## Tech Stack / Tools Used
 
 *   **Framework**: [Next.js](https://nextjs.org/) (with App Router)
+*   **Firebase Studio**: [Firebase Studio](https://studio.firebase.google.com/)
 *   **Language**: [TypeScript](https://www.typescriptlang.org/)
 *   **AI/Backend**: [Firebase Genkit](https://firebase.google.com/docs/genkit)
 *   **AI Model**: [Google Gemini](https://ai.google/gemini/)
